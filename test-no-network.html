@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Network Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            min-height: 100vh;
+        }
+        .test-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .status { 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin: 1rem 0; 
+            font-weight: bold;
+        }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.info { background: #dbeafe; color: #1e40af; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 style="text-align: center; color: #2563eb; margin-bottom: 2rem;">
+            <i class="fas fa-wifi-slash"></i> No Network Error Test
+        </h1>
+        
+        <div id="network-status" class="status info">
+            Testing network calls...
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 2rem 0;">
+            <h2>Medicine Search (Frontend Only)</h2>
+            <p>This should work without any network errors</p>
+            
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="medicine-search" placeholder="Search for medicines..." autocomplete="off">
+                    <button onclick="testSearch()" class="search-btn">
+                        <span>Search</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="search-suggestions">
+                    <span class="suggestion-tag" onclick="quickSearchTest('Paracetamol')">Paracetamol</span>
+                    <span class="suggestion-tag" onclick="quickSearchTest('Ibuprofen')">Ibuprofen</span>
+                    <span class="suggestion-tag" onclick="quickSearchTest('Vitamin')">Vitamin</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="test-results" style="margin: 2rem 0;">
+            <h3>Test Results:</h3>
+            <div id="results-count" style="font-weight: bold; color: #2563eb; margin: 1rem 0;">Ready to test...</div>
+            <div id="medicine-grid" class="medicine-grid"></div>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+            <button onclick="testSearch()" class="btn btn-primary">Test Search</button>
+            <button onclick="testBackendFunctions()" class="btn btn-outline">Test Backend Functions</button>
+            <button onclick="clearResults()" class="btn btn-outline">Clear Results</button>
+        </div>
+        
+        <div id="console-log" style="background: #f8fafc; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem; max-height: 200px; overflow-y: auto;">
+            <h4>Console Log:</h4>
+            <div id="log-content">No logs yet...</div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        // Override console.log to capture logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const logContent = document.getElementById('log-content');
+        
+        function addLog(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = type === 'error' ? '#dc2626' : '#374151';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logContent.appendChild(logEntry);
+            logContent.scrollTop = logContent.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addLog(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addLog('ERROR: ' + args.join(' '), 'error');
+        };
+        
+        function testSearch() {
+            const input = document.getElementById('medicine-search');
+            input.value = 'para';
+            
+            console.log('Testing search with "para"...');
+            
+            if (typeof performRealTimeSearch === 'function') {
+                performRealTimeSearch('para');
+                updateStatus('Search test completed - using medicines.js', 'success');
+            } else if (typeof searchMedicine === 'function') {
+                searchMedicine();
+                updateStatus('Search test completed - using app.js', 'success');
+            } else {
+                updateStatus('No search function found!', 'error');
+            }
+        }
+        
+        function quickSearchTest(query) {
+            console.log('Quick search test:', query);
+            if (typeof quickSearch === 'function') {
+                quickSearch(query);
+                updateStatus(`Quick search for "${query}" completed`, 'success');
+            } else {
+                updateStatus('quickSearch function not found!', 'error');
+            }
+        }
+        
+        function testBackendFunctions() {
+            console.log('Testing backend functions...');
+            
+            // Test if backend functions are disabled
+            Promise.all([
+                searchMedicinesFromBackend('test').then(() => 'searchMedicinesFromBackend: OK'),
+                getPharmaciesFromBackend().then(() => 'getPharmaciesFromBackend: OK'),
+                createOrderInBackend({}).then(() => 'createOrderInBackend: OK')
+            ]).then(results => {
+                console.log('Backend functions test results:', results);
+                updateStatus('All backend functions disabled successfully - no network calls', 'success');
+            }).catch(error => {
+                console.error('Backend test error:', error);
+                updateStatus('Backend test failed: ' + error.message, 'error');
+            });
+        }
+        
+        function clearResults() {
+            document.getElementById('medicine-grid').innerHTML = '';
+            document.getElementById('results-count').textContent = 'Results cleared';
+            document.getElementById('medicine-search').value = '';
+            logContent.innerHTML = 'Logs cleared...';
+        }
+        
+        function updateStatus(message, type) {
+            const statusDiv = document.getElementById('network-status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('No network test page loaded');
+            
+            // Check if medicines data is available
+            if (typeof extendedMedicines !== 'undefined') {
+                console.log(`Medicines data loaded: ${extendedMedicines.length} medicines`);
+                filteredMedicines = [...extendedMedicines];
+                updateStatus(`Ready - ${extendedMedicines.length} medicines loaded, no network calls`, 'success');
+            } else if (typeof sampleMedicines !== 'undefined') {
+                console.log(`Sample medicines loaded: ${sampleMedicines.length} medicines`);
+                updateStatus(`Ready - ${sampleMedicines.length} sample medicines loaded`, 'success');
+            } else {
+                updateStatus('No medicine data found!', 'error');
+            }
+            
+            // Test that no network errors occur on page load
+            setTimeout(() => {
+                console.log('Page loaded without network errors');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

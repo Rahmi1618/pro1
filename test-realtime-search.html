@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Search Test - PharmaCare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background: #f8fafc; }
+        .test-container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        .test-info { background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0284c7; }
+        .typing-demo { background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #16a34a; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Real-time Search Test</h1>
+        
+        <div class="test-info">
+            <h3>🔍 How to Test Real-time Search:</h3>
+            <ol>
+                <li><strong>Start typing</strong> in the search box below</li>
+                <li><strong>Watch results update</strong> as you type (after 3+ characters)</li>
+                <li><strong>Try these searches:</strong>
+                    <ul>
+                        <li>Type "para" → Should show Paracetamol medicines</li>
+                        <li>Type "german" → Should show German medicines</li>
+                        <li>Type "pain" → Should show pain relief medicines</li>
+                        <li>Type "antibiotic" → Should show antibiotics</li>
+                    </ul>
+                </li>
+                <li><strong>Clear search</strong> by clicking the X button or deleting all text</li>
+            </ol>
+        </div>
+        
+        <div class="enhanced-search-container">
+            <div class="search-wrapper">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" id="medicine-search" placeholder="Start typing to search medicines in real-time..." autocomplete="off">
+                <div class="search-clear" id="search-clear" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="search-suggestions" id="search-suggestions"></div>
+                <button class="search-btn" onclick="searchMedicine()">
+                    <span>Search</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="search-filters-quick">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="prescription">Prescription</button>
+                <button class="filter-chip" data-filter="otc">Over-the-Counter</button>
+                <button class="filter-chip" data-filter="imported">Imported</button>
+                <button class="filter-chip" data-filter="local">Local Production</button>
+            </div>
+            <div class="search-examples">
+                <span class="example-text">Quick searches:</span>
+                <button class="example-tag" onclick="quickSearch('para')">para</button>
+                <button class="example-tag" onclick="quickSearch('german')">german</button>
+                <button class="example-tag" onclick="quickSearch('pain')">pain</button>
+                <button class="example-tag" onclick="quickSearch('antibiotic')">antibiotic</button>
+            </div>
+        </div>
+        
+        <div class="typing-demo">
+            <h4>✨ Real-time Features:</h4>
+            <ul>
+                <li><strong>Instant Results:</strong> See results as you type (no delay)</li>
+                <li><strong>Smart Suggestions:</strong> Get suggestions for 1-2 characters</li>
+                <li><strong>Auto-clear:</strong> Delete all text to see all medicines</li>
+                <li><strong>Multiple Search Fields:</strong> Searches name, brand, category, ingredient, country, manufacturer</li>
+            </ul>
+        </div>
+        
+        <section id="medicine-results" class="section">
+            <div class="container">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="results-info">
+                        <span id="results-count">Type to search...</span>
+                    </div>
+                </div>
+                <div id="medicine-grid" class="medicine-grid">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #6b7280;">
+                        <i class="fas fa-keyboard" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>Start typing in the search box above to see real-time results!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Real-time search test loaded');
+            
+            // Initialize
+            initializeMedicinesPage();
+            setupMedicineEventListeners();
+            
+            // Show all medicines initially
+            setTimeout(() => {
+                filteredMedicines = [...extendedMedicines];
+                displayMedicines();
+                document.getElementById('results-count').textContent = `Showing ${filteredMedicines.length} medicines`;
+            }, 500);
+            
+            // Add typing indicator
+            const searchInput = document.getElementById('medicine-search');
+            if (searchInput) {
+                let typingTimer;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(typingTimer);
+                    const query = this.value.trim();
+                    
+                    if (query.length > 0 && query.length < 3) {
+                        document.getElementById('results-count').textContent = `Keep typing... (${query.length}/3 characters)`;
+                    }
+                    
+                    typingTimer = setTimeout(() => {
+                        if (query.length >= 3) {
+                            console.log('Real-time search triggered for:', query);
+                        }
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

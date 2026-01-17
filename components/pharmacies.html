@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacies - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pharmacies.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./medicines.html">Medicines</a></li>
+                <li><a href="./pharmacies.html" class="active">Pharmacies</a></li>
+                <li><a href="./orders.html">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="pharmacy-hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Find Nearby Pharmacies</span>
+                </div>
+                <h1>Discover Trusted Pharmacies in <span class="highlight">Kombolcha</span></h1>
+                <p>Find the best pharmacies near you with real-time availability, competitive prices, and reliable service</p>
+                
+                <div class="search-box">
+                    <div class="search-input">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search for pharmacies, medicines, or services...">
+                        <button class="search-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Partner Pharmacies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Emergency Service</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30min</div>
+                        <div class="stat-label">Average Delivery</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Kombolcha Pharmacies Map</h2>
+                    <p>Interactive map showing all pharmacies in Kombolcha area</p>
+                </div>
+                
+                <div class="map-container">
+                    <!-- Map Info Text -->
+                    <div class="map-info-text">
+                        <div class="map-info-content">
+                            <h3><i class="fas fa-map-marker-alt"></i> Find Pharmacies in Kombolcha</h3>
+                            <p>Discover trusted pharmacies across Kombolcha city with our interactive map. Each location offers quality healthcare services and medications.</p>
+                            
+                            <div class="map-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-search-location"></i>
+                                    <div>
+                                        <h4>Easy Location</h4>
+                                        <p>Find the nearest pharmacy to your location with precise directions</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <h4>Real-time Hours</h4>
+                                        <p>Check opening hours and availability before you visit</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <h4>Direct Contact</h4>
+                                        <p>Call pharmacies directly for prescription inquiries</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="map-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">6+</span>
+                                    <span class="stat-label">Pharmacies</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">24/7</span>
+                                    <span class="stat-label">Emergency</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">30min</span>
+                                    <span class="stat-label">Delivery</span>
+                                </div>
+                            </div>
+                            
+                            <div class="map-actions">
+                                <button class="btn btn-primary" onclick="openFullMap()">
+                                    <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                                </button>
+                                <button class="btn btn-outline" onclick="getCurrentLocation()">
+                                    <i class="fas fa-crosshairs"></i> Use My Location
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Display -->
+                    <div class="map-wrapper">
+                        <div class="map-header">
+                            <h3><i class="fas fa-map-marked-alt"></i> Pharmacies Near You</h3>
+                            <div class="map-controls">
+                                <button class="map-btn" onclick="openFullMap()" title="Open in Google Maps">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
+                                <button class="map-btn" onclick="toggleFullscreen()" title="Fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="google-map-embed">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31330.246913578!2d39.70670!3d11.08150!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164a0a7a7a7a7a7a%3A0x7a7a7a7a7a7a7a7a!2sKombolcha%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1640995200000"
+                                width="100%" 
+                                height="500" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Kombolcha Pharmacies Map">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pharmacies List -->
+        <section class="pharmacies-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Pharmacies</h2>
+                    <p>Top-rated pharmacies in Kombolcha with excellent service</p>
+                </div>
+
+                <div class="pharmacies-grid">
+                    <div class="pharmacy-card">
+                        <div class="pharmacy-header">
+                            <div class="pharmacy-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="pharmacy-badge">Open 24/7</div>
+                        </div>
+                        <h3>Kombolcha Central Pharmacy</h3>
+                        <div class="pharmacy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.8 (245 reviews)</span>
+                        </div>
+                        <div class="pharmacy-info">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Main Street, Near Hospital</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+251 911 234 567</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Open 24 Hours</span>
+                            </div>
+                        </div>
+                        <div class="pharmacy-services">
+                            <span class="service-tag">Home Delivery</span>
+                            <span class="service-tag">Emergency</span>
+                            <span class="service-tag">Consultation</span>
+                        </div>
+                        <div class="pharmacy-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-directions"></i> Get Directions
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-phone"></i> Call Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pharmacy-card">
+                        <div class="pharmacy-header">
+                            <div class="pharmacy-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="pharmacy-badge open">Open Now</div>
+                        </div>
+                        <h3>Dessie Road Pharmacy</h3>
+                        <div class="pharmacy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">4.6 (189 reviews)</span>
+                        </div>
+                        <div class="pharmacy-info">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Dessie Road, Near Bus Station</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+251 911 234 568</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>6:30 AM - 11:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="pharmacy-services">
+                            <span class="service-tag">Delivery</span>
+                            <span class="service-tag">Prescription</span>
+                            <span class="service-tag">Health Check</span>
+                        </div>
+                        <div class="pharmacy-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-directions"></i> Get Directions
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-phone"></i> Call Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pharmacy-card">
+                        <div class="pharmacy-header">
+                            <div class="pharmacy-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="pharmacy-badge open">Open Now</div>
+                        </div>
+                        <h3>Wollo University Pharmacy</h3>
+                        <div class="pharmacy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">4.7 (156 reviews)</span>
+                        </div>
+                        <div class="pharmacy-info">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>University Campus, KIT</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+251 911 234 569</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>8:00 AM - 6:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="pharmacy-services">
+                            <span class="service-tag">Student Health</span>
+                            <span class="service-tag">Research</span>
+                            <span class="service-tag">Consultation</span>
+                        </div>
+                        <div class="pharmacy-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-directions"></i> Get Directions
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-phone"></i> Call Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="load-more-section">
+                    <button class="btn btn-large">
+                        <i class="fas fa-plus"></i> Load More Pharmacies
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Services</h2>
+                    <p>Comprehensive pharmacy services for your health needs</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Home Delivery</h3>
+                        <p>Fast and reliable medicine delivery to your doorstep within 30 minutes</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>24/7 Emergency</h3>
+                        <p>Round-the-clock emergency pharmacy services for urgent medical needs</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Pharmacist Consultation</h3>
+                        <p>Professional consultation and advice from qualified pharmacists</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-prescription-bottle-alt"></i>
+                        </div>
+                        <h3>Prescription Service</h3>
+                        <p>Complete prescription filling and management services</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-pills"></i>
+                        <span>PharmaCare</span>
+                    </div>
+                    <p>Your trusted pharmacy finder in Kombolcha, Ethiopia. Find the best pharmacies with competitive prices and reliable service.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="./medicines.html">Medicines</a></li>
+                        <li><a href="./orders.html">Orders</a></li>
+                        <li><a href="../pages/contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Kombolcha, Ethiopia</p>
+                        <p><i class="fas fa-phone"></i> +251 911 234 567</p>
+                        <p><i class="fas fa-envelope"></i> info@pharmacare.et</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PharmaCare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Pharmacy-specific JavaScript
+        function openFullMap() {
+            window.open('https://maps.app.goo.gl/Y2H2tajgEwqVL65t5', '_blank');
+        }
+
+        function toggleFullscreen() {
+            const mapWrapper = document.querySelector('.map-wrapper');
+            if (mapWrapper) {
+                if (!document.fullscreenElement) {
+                    mapWrapper.requestFullscreen().catch(err => {
+                        console.log('Error attempting to enable fullscreen:', err);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Pharmacies page loaded successfully');
+        });
+    </script>
+</body>
+</html>

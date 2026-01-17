@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Registration - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../components/medicines.html">Medicines</a></li>
+                <li><a href="../components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="../components/orders.html">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="page-hero">
+            <div class="hero-content">
+                <h1><i class="fas fa-store"></i> Register Your Pharmacy</h1>
+                <p>Join PharmaCare's network and reach more customers with our AI-powered platform</p>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <div class="container">
+                <h2>Why Join PharmaCare?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Reach More Customers</h3>
+                        <p>Connect with thousands of customers looking for medicines in your area through our platform.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI-Powered Matching</h3>
+                        <p>Our intelligent system matches customers with your pharmacy based on location, price, and availability.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Increase Sales</h3>
+                        <p>Boost your revenue with online orders and efficient inventory management tools.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Easy Management</h3>
+                        <p>Manage orders, inventory, and customer communications from one simple dashboard.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-truck"></i>
+                        <h3>Delivery Support</h3>
+                        <p>Coordinate deliveries efficiently with our integrated delivery management system.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure Payments</h3>
+                        <p>Receive payments securely through TeleBirr, bank transfers, and other trusted methods.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section class="registration-section">
+            <div class="container">
+                <div class="registration-form">
+                    <h2>Pharmacy Registration Form</h2>
+                    <p>Please fill out all required information to register your pharmacy with PharmaCare.</p>
+                    
+                    <form id="registration-form">
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h3>Basic Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="text" name="pharmacyName" placeholder=" " required>
+                                    <label>Pharmacy Name *</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="licenseNumber" placeholder=" " required>
+                                    <label>License Number *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="text" name="ownerName" placeholder=" " required>
+                                    <label>Owner/Manager Name *</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="pharmacistName" placeholder=" " required>
+                                    <label>Licensed Pharmacist Name *</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="form-section">
+                            <h3>Contact Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder=" " required>
+                                    <label>Email Address *</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" name="phone" placeholder=" " required>
+                                    <label>Phone Number *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <input type="text" name="address" placeholder=" " required>
+                                <label>Full Address *</label>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="text" name="city" placeholder=" " required>
+                                    <label>City *</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="region" placeholder=" " required>
+                                    <label>Region/State *</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operating Hours -->
+                        <div class="form-section">
+                            <h3>Operating Hours</h3>
+                            <div class="hours-input-grid">
+                                <div class="hours-day">
+                                    <label>Monday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="mondayOpen" required>
+                                        <span>to</span>
+                                        <input type="time" name="mondayClose" required>
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Tuesday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="tuesdayOpen" required>
+                                        <span>to</span>
+                                        <input type="time" name="tuesdayClose" required>
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Wednesday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="wednesdayOpen" required>
+                                        <span>to</span>
+                                        <input type="time" name="wednesdayClose" required>
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Thursday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="thursdayOpen" required>
+                                        <span>to</span>
+                                        <input type="time" name="thursdayClose" required>
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Friday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="fridayOpen" required>
+                                        <span>to</span>
+                                        <input type="time" name="fridayClose" required>
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Saturday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="saturdayOpen">
+                                        <span>to</span>
+                                        <input type="time" name="saturdayClose">
+                                    </div>
+                                </div>
+                                <div class="hours-day">
+                                    <label>Sunday</label>
+                                    <div class="hours-inputs">
+                                        <input type="time" name="sundayOpen">
+                                        <span>to</span>
+                                        <input type="time" name="sundayClose">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services Offered -->
+                        <div class="form-section">
+                            <h3>Services Offered</h3>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="homeDelivery" name="services" value="homeDelivery">
+                                    <label for="homeDelivery">Home Delivery</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="emergencyService" name="services" value="emergencyService">
+                                    <label for="emergencyService">24/7 Emergency Service</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prescriptionService" name="services" value="prescriptionService">
+                                    <label for="prescriptionService">Prescription Processing</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="consultation" name="services" value="consultation">
+                                    <label for="consultation">Pharmacist Consultation</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="healthScreening" name="services" value="healthScreening">
+                                    <label for="healthScreening">Health Screening</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="medicalEquipment" name="services" value="medicalEquipment">
+                                    <label for="medicalEquipment">Medical Equipment Sales</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specialties -->
+                        <div class="form-section">
+                            <h3>Specialties (Optional)</h3>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="diabetes" name="specialties" value="diabetes">
+                                    <label for="diabetes">Diabetes Care</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="heartHealth" name="specialties" value="heartHealth">
+                                    <label for="heartHealth">Heart & Blood Pressure</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pediatric" name="specialties" value="pediatric">
+                                    <label for="pediatric">Pediatric Medicine</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="womensHealth" name="specialties" value="womensHealth">
+                                    <label for="womensHealth">Women's Health</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="vitamins" name="specialties" value="vitamins">
+                                    <label for="vitamins">Vitamins & Supplements</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="chronicCare" name="specialties" value="chronicCare">
+                                    <label for="chronicCare">Chronic Disease Management</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="form-section">
+                            <h3>Additional Information</h3>
+                            <div class="form-group full-width">
+                                <textarea name="description" placeholder="Tell us about your pharmacy, years in business, special services, etc."></textarea>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="number" name="yearsInBusiness" placeholder=" " min="0">
+                                    <label>Years in Business</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" name="staffCount" placeholder=" " min="1">
+                                    <label>Number of Staff</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="form-section">
+                            <h3>Terms and Conditions</h3>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <label for="terms">I agree to the <a href="./terms-of-service.html" target="_blank">Terms of Service</a> and <a href="./privacy-policy.html" target="_blank">Privacy Policy</a> *</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="dataProcessing" name="dataProcessing" required>
+                                    <label for="dataProcessing">I consent to the processing of my pharmacy's data for platform operations *</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="marketing" name="marketing">
+                                    <label for="marketing">I agree to receive marketing communications and updates from PharmaCare</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i> Submit Registration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="next-steps">
+            <div class="container">
+                <h2>What Happens Next?</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Application Review</h3>
+                        <p>Our team will review your application and verify your pharmacy license and credentials.</p>
+                        <span class="step-time">1-2 business days</span>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Account Setup</h3>
+                        <p>Once approved, we'll set up your pharmacy dashboard and provide training materials.</p>
+                        <span class="step-time">1 business day</span>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Go Live</h3>
+                        <p>Start receiving orders and managing your inventory through the PharmaCare platform.</p>
+                        <span class="step-time">Immediate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/pages.js"></script>
+    <style>
+        .hours-input-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .hours-day {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+        
+        .hours-day label {
+            min-width: 100px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .hours-inputs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hours-inputs input[type="time"] {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .hours-inputs span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        .step-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .step-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .step-time {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .next-steps {
+            background: var(--bg-light);
+            padding: 4rem 0;
+        }
+        
+        .next-steps h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .hours-day {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .hours-day label {
+                min-width: auto;
+            }
+        }
+    </style>
+</body>
+</html>

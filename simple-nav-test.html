@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Navigation Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="components/medicines.html">Medicines</a></li>
+                <li><a href="components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="components/orders.html">Orders</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div style="padding: 100px 20px; text-align: center;">
+        <h1>Mobile Navigation Test</h1>
+        <p>Resize your browser to mobile width and click the hamburger menu (3 lines) in the top-right corner.</p>
+        
+        <div style="margin: 2rem 0; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+            <h3>Test Instructions:</h3>
+            <ol style="text-align: left; max-width: 500px; margin: 0 auto;">
+                <li>Make your browser window narrow (less than 1024px wide)</li>
+                <li>Look for the 3 horizontal lines (hamburger menu) in the navigation</li>
+                <li>Click the hamburger menu</li>
+                <li>The menu should slide out and the hamburger should turn into an X</li>
+                <li>Click a menu item or outside the menu to close it</li>
+            </ol>
+        </div>
+        
+        <button onclick="testFunction()" style="background: #2563eb; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer; margin: 1rem;">
+            Test toggleMobileNav() Function
+        </button>
+        
+        <div id="test-output" style="margin-top: 1rem; padding: 1rem; background: #f9fafb; border-radius: 8px; font-family: monospace;"></div>
+    </div>
+
+    <script>
+        // Define the function inline to ensure it's available
+        function toggleMobileNav() {
+            console.log('toggleMobileNav called!');
+            
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('nav-open');
+                
+                // Prevent body scroll when menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+                
+                console.log('Mobile nav toggled successfully');
+                updateTestOutput('✅ Mobile navigation toggled successfully!');
+            } else {
+                console.error('Navigation elements not found');
+                updateTestOutput('❌ Navigation elements not found');
+            }
+        }
+        
+        function testFunction() {
+            updateTestOutput('Testing toggleMobileNav function...');
+            
+            try {
+                toggleMobileNav();
+                updateTestOutput('✅ Function executed without errors');
+            } catch (error) {
+                updateTestOutput('❌ Error: ' + error.message);
+            }
+        }
+        
+        function updateTestOutput(message) {
+            const output = document.getElementById('test-output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTestOutput('Page loaded. Ready for testing.');
+            
+            // Check if elements exist
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                updateTestOutput('✅ Navigation elements found');
+                
+                // Add event listeners as backup
+                navToggle.addEventListener('click', function(e) {
+                    updateTestOutput('📱 Hamburger menu clicked via event listener');
+                });
+                
+                // Close menu when clicking links
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.classList.remove('nav-open');
+                        document.body.style.overflow = '';
+                        updateTestOutput('📱 Menu closed via link click');
+                    });
+                });
+                
+            } else {
+                updateTestOutput('❌ Navigation elements not found');
+            }
+        });
+    </script>
+</body>
+</html>

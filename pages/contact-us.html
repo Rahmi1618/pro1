@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../components/medicines.html">Medicines</a></li>
+                <li><a href="../components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="../components/orders.html">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="page-hero">
+            <div class="hero-content">
+                <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+                <p>Get in touch with our team - we're here to help you with all your pharmacy needs</p>
+            </div>
+        </section>
+
+        <!-- Contact Options -->
+        <section class="contact-options">
+            <div class="container">
+                <div class="support-grid">
+                    <div class="support-option">
+                        <i class="fas fa-phone"></i>
+                        <h3>Call Us</h3>
+                        <p>Speak directly with our support team</p>
+                        <div class="contact-details">
+                            <p><strong>Main Line:</strong> +251 911 234 567</p>
+                            <p><strong>Emergency:</strong> +251 911 234 568</p>
+                            <p><strong>Hours:</strong> 24/7 Available</p>
+                        </div>
+                        <button class="btn btn-success" onclick="window.location.href='tel:+251911234567'">
+                            <i class="fas fa-phone"></i> Call Now
+                        </button>
+                    </div>
+
+                    <div class="support-option">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Us</h3>
+                        <p>Send us a detailed message</p>
+                        <div class="contact-details">
+                            <p><strong>General:</strong> info@pharmacare.et</p>
+                            <p><strong>Support:</strong> support@pharmacare.et</p>
+                            <p><strong>Business:</strong> business@pharmacare.et</p>
+                        </div>
+                        <button class="btn" onclick="window.location.href='mailto:info@pharmacare.et'">
+                            <i class="fas fa-envelope"></i> Send Email
+                        </button>
+                    </div>
+
+                    <div class="support-option">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Visit Us</h3>
+                        <p>Come to our office location</p>
+                        <div class="contact-details">
+                            <p><strong>Address:</strong></p>
+                            <p>Wollo University</p>
+                            <p>Kombolcha Institute of Technology</p>
+                            <p>Kombolcha, Ethiopia</p>
+                        </div>
+                        <button class="btn" onclick="openMap()">
+                            <i class="fas fa-directions"></i> Get Directions
+                        </button>
+                    </div>
+
+                    <div class="support-option">
+                        <i class="fas fa-comments"></i>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our AI assistant or human agents</p>
+                        <div class="contact-details">
+                            <p><strong>AI Support:</strong> 24/7 Available</p>
+                            <p><strong>Human Support:</strong> 8AM - 6PM</p>
+                            <p><strong>Response Time:</strong> < 2 minutes</p>
+                        </div>
+                        <button class="btn btn-success" onclick="openLiveChat()">
+                            <i class="fas fa-comments"></i> Start Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="contact-form-section">
+            <div class="container">
+                <div class="contact-form">
+                    <h2>Send us a Message</h2>
+                    <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <form id="contact-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder=" " required>
+                                <label>Full Name *</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder=" " required>
+                                <label>Email Address *</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder=" ">
+                                <label>Phone Number</label>
+                            </div>
+                            <div class="form-group">
+                                <select name="subject" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="billing">Billing Question</option>
+                                    <option value="partnership">Partnership Opportunity</option>
+                                    <option value="complaint">Complaint</option>
+                                    <option value="suggestion">Suggestion</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <textarea name="message" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <label for="newsletter">Subscribe to our newsletter for updates and health tips</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Office Hours -->
+        <section class="office-hours">
+            <div class="container">
+                <h2>Office Hours & Availability</h2>
+                <div class="hours-grid">
+                    <div class="hours-card">
+                        <h3><i class="fas fa-robot"></i> AI Support</h3>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span>Monday - Sunday</span>
+                                <span>24/7 Available</span>
+                            </div>
+                        </div>
+                        <p>Our AI assistant is always ready to help with common questions and basic support.</p>
+                    </div>
+                    
+                    <div class="hours-card">
+                        <h3><i class="fas fa-user-tie"></i> Human Support</h3>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span>Monday - Friday</span>
+                                <span>8:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Saturday</span>
+                                <span>9:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Sunday</span>
+                                <span>Emergency Only</span>
+                            </div>
+                        </div>
+                        <p>Our human support team provides personalized assistance for complex issues.</p>
+                    </div>
+                    
+                    <div class="hours-card">
+                        <h3><i class="fas fa-ambulance"></i> Emergency Support</h3>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span>Emergency Line</span>
+                                <span>24/7 Available</span>
+                            </div>
+                        </div>
+                        <p>For urgent medicine needs and emergency situations, we're always here to help.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Preview -->
+        <section class="faq-preview">
+            <div class="container">
+                <h2>Quick Answers</h2>
+                <p>Before contacting us, check if your question is answered below:</p>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>How quickly do you respond to messages?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We aim to respond to all messages within 2 hours during business hours and within 24 hours on weekends. Emergency inquiries are handled immediately.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Can I visit your office in person?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We're located at Wollo University, Kombolcha Institute of Technology. Please call ahead to schedule an appointment to ensure someone is available to assist you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Do you provide support in local languages?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, our support team can assist you in Amharic, Oromo, and English. Our AI assistant currently supports English with more languages coming soon.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="./faq.html" class="btn btn-outline">
+                        <i class="fas fa-question-circle"></i> View All FAQs
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div id="chatbot-toggle" class="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-robot"></i>
+            <span class="chatbot-badge">AI</span>
+        </div>
+
+        <div id="chatbot-window" class="chatbot-window hidden">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i>
+                    <span>Contact Assistant</span>
+                </div>
+                <div class="chatbot-controls">
+                    <button onclick="minimizeChatbot()" class="chatbot-control">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button onclick="closeChatbot()" class="chatbot-control">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hi! I can help you get in touch with the right person or answer your questions directly. I can:</p>
+                        <ul>
+                            <li>Connect you with human support</li>
+                            <li>Help you find the right contact information</li>
+                            <li>Answer common questions immediately</li>
+                            <li>Schedule callbacks or appointments</li>
+                        </ul>
+                        <p>How can I assist you today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chatbot-quick-actions">
+                <button class="quick-action" onclick="sendQuickMessage('I need human support')">
+                    <i class="fas fa-user-tie"></i> Human Support
+                </button>
+                <button class="quick-action" onclick="sendQuickMessage('Schedule a callback')">
+                    <i class="fas fa-phone-alt"></i> Schedule Callback
+                </button>
+                <button class="quick-action" onclick="sendQuickMessage('Emergency help needed')">
+                    <i class="fas fa-exclamation-triangle"></i> Emergency
+                </button>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-message" placeholder="Ask about contacting us..." onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendChatMessage()" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/pages.js"></script>
+    <script>
+        function openMap() {
+            // Open Google Maps with the university location
+            const address = "Wollo University, Kombolcha Institute of Technology, Kombolcha, Ethiopia";
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

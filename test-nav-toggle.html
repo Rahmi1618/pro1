@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Toggle Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .test-content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .status-success { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        .debug-info {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .instruction {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="components/medicines.html">Medicines</a></li>
+                <li><a href="components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="components/orders.html">Orders</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="test-content">
+        <h1>🔧 Mobile Navigation Toggle Test</h1>
+        
+        <div class="test-section">
+            <h2>Test Status</h2>
+            <div id="test-results">
+                <p><span class="status-indicator status-warning"></span> Testing in progress...</p>
+            </div>
+            
+            <div class="instruction">
+                <h3>📱 How to Test:</h3>
+                <ol>
+                    <li><strong>Resize your browser</strong> to mobile width (less than 1024px)</li>
+                    <li><strong>Look for the hamburger menu</strong> (3 horizontal lines) in the top-right</li>
+                    <li><strong>Click the hamburger menu</strong> - it should:
+                        <ul>
+                            <li>Transform into an X</li>
+                            <li>Open the mobile menu from the left</li>
+                            <li>Prevent page scrolling</li>
+                        </ul>
+                    </li>
+                    <li><strong>Click a menu item</strong> - menu should close</li>
+                    <li><strong>Click outside the menu</strong> - menu should close</li>
+                </ol>
+            </div>
+            
+            <div class="debug-info" id="debug-info">
+                <strong>Debug Information:</strong><br>
+                <span id="debug-content">Initializing...</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Manual Test Buttons</h2>
+            <p>Use these buttons to test the functionality manually:</p>
+            
+            <button onclick="testToggleFunction()" style="background: #2563eb; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; margin: 0.5rem; cursor: pointer;">
+                Test toggleMobileNav() Function
+            </button>
+            
+            <button onclick="testElementsExist()" style="background: #10b981; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; margin: 0.5rem; cursor: pointer;">
+                Check Elements Exist
+            </button>
+            
+            <button onclick="simulateMobileView()" style="background: #f59e0b; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; margin: 0.5rem; cursor: pointer;">
+                Simulate Mobile View
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h2>Expected Behavior</h2>
+            <ul>
+                <li>✅ <strong>Desktop (>1024px):</strong> Horizontal menu visible, hamburger hidden</li>
+                <li>✅ <strong>Mobile (≤1024px):</strong> Hamburger visible, menu hidden by default</li>
+                <li>✅ <strong>Menu Toggle:</strong> Hamburger transforms to X, menu slides in</li>
+                <li>✅ <strong>Menu Close:</strong> Click outside, click menu item, or resize to desktop</li>
+                <li>✅ <strong>Body Scroll:</strong> Prevented when mobile menu is open</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Test functions
+        function testToggleFunction() {
+            const debugContent = document.getElementById('debug-content');
+            
+            try {
+                if (typeof toggleMobileNav === 'function') {
+                    toggleMobileNav();
+                    debugContent.innerHTML += '<br>✅ toggleMobileNav() function called successfully';
+                } else {
+                    debugContent.innerHTML += '<br>❌ toggleMobileNav() function not found';
+                }
+            } catch (error) {
+                debugContent.innerHTML += '<br>❌ Error calling toggleMobileNav(): ' + error.message;
+            }
+        }
+        
+        function testElementsExist() {
+            const debugContent = document.getElementById('debug-content');
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            debugContent.innerHTML += '<br><br><strong>Element Check:</strong>';
+            debugContent.innerHTML += '<br>nav-toggle: ' + (navToggle ? '✅ Found' : '❌ Not found');
+            debugContent.innerHTML += '<br>nav-menu: ' + (navMenu ? '✅ Found' : '❌ Not found');
+            
+            if (navToggle) {
+                debugContent.innerHTML += '<br>Toggle classes: ' + navToggle.className;
+            }
+            if (navMenu) {
+                debugContent.innerHTML += '<br>Menu classes: ' + navMenu.className;
+            }
+        }
+        
+        function simulateMobileView() {
+            const debugContent = document.getElementById('debug-content');
+            const viewport = document.querySelector('meta[name="viewport"]');
+            
+            debugContent.innerHTML += '<br><br><strong>Mobile Simulation:</strong>';
+            debugContent.innerHTML += '<br>Current window width: ' + window.innerWidth + 'px';
+            debugContent.innerHTML += '<br>Viewport meta: ' + (viewport ? viewport.content : 'Not found');
+            
+            // Force mobile styles
+            document.body.style.width = '375px';
+            debugContent.innerHTML += '<br>✅ Forced mobile width (375px)';
+        }
+        
+        // Initialize test
+        document.addEventListener('DOMContentLoaded', function() {
+            const debugContent = document.getElementById('debug-content');
+            const testResults = document.getElementById('test-results');
+            
+            setTimeout(() => {
+                let allGood = true;
+                let results = '';
+                
+                // Check if function exists
+                if (typeof toggleMobileNav === 'function') {
+                    results += '<p><span class="status-indicator status-success"></span> toggleMobileNav() function exists</p>';
+                } else {
+                    results += '<p><span class="status-indicator status-error"></span> toggleMobileNav() function missing</p>';
+                    allGood = false;
+                }
+                
+                // Check if elements exist
+                const navToggle = document.getElementById('nav-toggle');
+                const navMenu = document.getElementById('nav-menu');
+                
+                if (navToggle && navMenu) {
+                    results += '<p><span class="status-indicator status-success"></span> Navigation elements found</p>';
+                } else {
+                    results += '<p><span class="status-indicator status-error"></span> Navigation elements missing</p>';
+                    allGood = false;
+                }
+                
+                // Check if CSS is loaded
+                const navbarStyles = window.getComputedStyle(document.querySelector('.navbar'));
+                if (navbarStyles.position === 'fixed') {
+                    results += '<p><span class="status-indicator status-success"></span> CSS styles loaded correctly</p>';
+                } else {
+                    results += '<p><span class="status-indicator status-warning"></span> CSS styles may not be loaded</p>';
+                }
+                
+                if (allGood) {
+                    results += '<p><span class="status-indicator status-success"></span> <strong>All tests passed! Mobile navigation should work.</strong></p>';
+                }
+                
+                testResults.innerHTML = results;
+                
+                // Debug info
+                debugContent.innerHTML = `
+                    Window width: ${window.innerWidth}px<br>
+                    User agent: ${navigator.userAgent.substring(0, 50)}...<br>
+                    toggleMobileNav available: ${typeof toggleMobileNav === 'function'}<br>
+                    nav-toggle element: ${navToggle ? 'Found' : 'Not found'}<br>
+                    nav-menu element: ${navMenu ? 'Found' : 'Not found'}
+                `;
+            }, 500);
+        });
+    </script>
+</body>
+</html>

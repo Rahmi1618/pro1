@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Search Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { padding: 2rem; background: #f8fafc; }
+        .test-container { max-width: 1200px; margin: 0 auto; }
+        .test-header { background: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .test-instructions { background: #e0f2fe; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; }
+        .search-test { background: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="fas fa-search"></i> Frontend Search Test</h1>
+            <p>Testing medicine search functionality without backend dependency</p>
+        </div>
+        
+        <div class="test-instructions">
+            <h3><i class="fas fa-info-circle"></i> Test Instructions:</h3>
+            <ol>
+                <li><strong>Type "para"</strong> - Should show Paracetamol medicines</li>
+                <li><strong>Type "german"</strong> - Should show German medicines</li>
+                <li><strong>Type "antibiotic"</strong> - Should show antibiotic medicines</li>
+                <li><strong>Click search icon</strong> - Should trigger search</li>
+                <li><strong>Click suggestion tags</strong> - Should perform quick search</li>
+                <li><strong>Clear search</strong> - Should show all medicines</li>
+            </ol>
+        </div>
+        
+        <div class="search-test">
+            <h2>Search Interface</h2>
+            
+            <!-- Search Container -->
+            <div class="search-container" style="max-width: 600px; margin: 2rem 0;">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="medicine-search" placeholder="Search for medicines, brands, or conditions..." autocomplete="off">
+                    <button onclick="searchMedicine()" class="search-btn">
+                        <span>Search</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="search-suggestions">
+                    <span class="suggestion-tag" onclick="quickSearch('Paracetamol')">Paracetamol</span>
+                    <span class="suggestion-tag" onclick="quickSearch('German')">German</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Antibiotic')">Antibiotic</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Ibuprofen')">Ibuprofen</span>
+                </div>
+            </div>
+            
+            <!-- Results Count -->
+            <div id="results-count" style="margin: 1rem 0; font-weight: bold; color: #2563eb;"></div>
+            
+            <!-- Clear Search Button -->
+            <button onclick="clearSearch()" class="btn btn-outline" style="margin: 1rem 0;">
+                <i class="fas fa-times"></i> Clear Search
+            </button>
+        </div>
+        
+        <!-- Medicine Grid -->
+        <div class="search-results">
+            <h2>Search Results</h2>
+            <div id="medicine-grid" class="medicine-grid"></div>
+        </div>
+        
+        <!-- Debug Info -->
+        <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-top: 2rem; font-family: monospace; font-size: 0.9rem;">
+            <h4>Debug Info:</h4>
+            <div id="debug-info"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Frontend search test loaded');
+            console.log('Available medicines:', extendedMedicines.length);
+            
+            // Show all medicines initially
+            filteredMedicines = [...extendedMedicines];
+            displayMedicines();
+            
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+                resultsCount.textContent = `Showing ${filteredMedicines.length} medicines`;
+            }
+            
+            // Update debug info
+            updateDebugInfo();
+        });
+        
+        function updateDebugInfo() {
+            const debugInfo = document.getElementById('debug-info');
+            if (debugInfo) {
+                debugInfo.innerHTML = `
+                    <div>Total medicines in database: ${extendedMedicines.length}</div>
+                    <div>Currently filtered medicines: ${filteredMedicines.length}</div>
+                    <div>Search functionality: ${typeof performRealTimeSearch === 'function' ? 'Available' : 'Not Available'}</div>
+                    <div>Last search query: <span id="last-query">None</span></div>
+                `;
+            }
+        }
+        
+        // Override performRealTimeSearch to add debug info
+        const originalPerformRealTimeSearch = performRealTimeSearch;
+        performRealTimeSearch = function(query) {
+            document.getElementById('last-query').textContent = query;
+            updateDebugInfo();
+            return originalPerformRealTimeSearch(query);
+        };
+    </script>
+</body>
+</html>

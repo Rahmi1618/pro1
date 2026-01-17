@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Troubleshooting - PharmaCare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+        .error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .test-result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 PharmaCare Database Troubleshooting Guide</h1>
+        <p>If users are not appearing in the database after registration, follow these steps to diagnose and fix the issue.</p>
+    </div>
+
+    <div class="container">
+        <h2>📋 Step 1: Check XAMPP Status</h2>
+        <div class="step">
+            <h3>Verify XAMPP Services</h3>
+            <p>Make sure both Apache and MySQL are running in XAMPP Control Panel:</p>
+            <ul>
+                <li>Open XAMPP Control Panel</li>
+                <li>Check that <strong>Apache</strong> shows "Running" (green)</li>
+                <li>Check that <strong>MySQL</strong> shows "Running" (green)</li>
+                <li>If not running, click "Start" for each service</li>
+            </ul>
+        </div>
+        
+        <button onclick="testXAMPPConnection()">Test XAMPP Connection</button>
+        <div id="xampp-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>🗄️ Step 2: Check Database Setup</h2>
+        <div class="step">
+            <h3>Verify Database Exists</h3>
+            <p>Check if the <code>pharmacare</code> database exists:</p>
+            <ol>
+                <li>Open <a href="http://localhost/phpmyadmin" target="_blank">phpMyAdmin</a></li>
+                <li>Look for <code>pharmacare</code> database in the left sidebar</li>
+                <li>If it doesn't exist, create it:
+                    <div class="code-block">1. Click "New" in phpMyAdmin
+2. Enter database name: pharmacare
+3. Click "Create"</div>
+                </li>
+            </ol>
+        </div>
+        
+        <div class="step">
+            <h3>Import Database Schema</h3>
+            <p>If the database exists but tables are missing:</p>
+            <ol>
+                <li>Click on <code>pharmacare</code> database</li>
+                <li>Click "Import" tab</li>
+                <li>Choose file: <code>backend/database.sql</code></li>
+                <li>Click "Go" to import</li>
+            </ol>
+        </div>
+        
+        <button onclick="testDatabaseStructure()">Test Database Structure</button>
+        <div id="db-structure-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>🔗 Step 3: Test Database Connection</h2>
+        <div class="step">
+            <h3>Connection Test</h3>
+            <p>Test if PHP can connect to the database:</p>
+        </div>
+        
+        <button onclick="testConnection()">Test Database Connection</button>
+        <div id="connection-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>📝 Step 4: Test Registration API</h2>
+        <div class="step">
+            <h3>Debug Registration</h3>
+            <p>Test the registration API with detailed debugging:</p>
+        </div>
+        
+        <button onclick="testRegistrationAPI()">Test Registration API</button>
+        <div id="registration-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>👥 Step 5: Check Existing Users</h2>
+        <div class="step">
+            <h3>View Database Users</h3>
+            <p>Check what users are currently in the database:</p>
+        </div>
+        
+        <button onclick="checkUsers()">Check Database Users</button>
+        <div id="users-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>🚨 Common Issues & Solutions</h2>
+        
+        <div class="step error">
+            <h3>Issue: "Database connection failed"</h3>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Make sure MySQL is running in XAMPP</li>
+                <li>Check if port 3306 is available</li>
+                <li>Verify database credentials in <code>backend/config/database.php</code></li>
+            </ul>
+        </div>
+        
+        <div class="step error">
+            <h3>Issue: "Table 'pharmacare.users' doesn't exist"</h3>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Import the database schema: <code>backend/database.sql</code></li>
+                <li>Make sure you selected the correct database in phpMyAdmin</li>
+                <li>Check if the SQL import completed without errors</li>
+            </ul>
+        </div>
+        
+        <div class="step error">
+            <h3>Issue: "Registration appears successful but no data in database"</h3>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Check PHP error logs in XAMPP</li>
+                <li>Verify the API endpoint URL is correct</li>
+                <li>Test with the debug registration API</li>
+                <li>Check if transactions are being rolled back due to errors</li>
+            </ul>
+        </div>
+        
+        <div class="step warning">
+            <h3>Issue: "CORS errors in browser console"</h3>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Make sure you're accessing via <code>http://localhost</code></li>
+                <li>Don't open HTML files directly (file:// protocol)</li>
+                <li>Check that CORS headers are set in PHP files</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📁 File Locations</h2>
+        <div class="step">
+            <h3>Important Files</h3>
+            <ul>
+                <li><strong>Database Schema:</strong> <code>backend/database.sql</code></li>
+                <li><strong>Database Config:</strong> <code>backend/config/database.php</code></li>
+                <li><strong>Registration API:</strong> <code>backend/api/auth/register.php</code></li>
+                <li><strong>Debug Registration:</strong> <code>backend/api/auth/register-debug.php</code></li>
+                <li><strong>Test Page:</strong> <code>test-registration.html</code></li>
+                <li><strong>XAMPP htdocs:</strong> <code>C:\xampp\htdocs\pharmacare\</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function testXAMPPConnection() {
+            const resultDiv = document.getElementById('xampp-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing XAMPP connection...';
+            
+            try {
+                // Test if we can reach localhost
+                const response = await fetch('http://localhost/');
+                if (response.ok) {
+                    resultDiv.textContent = '✅ XAMPP Apache is running!\n\nNext: Test MySQL connection...';
+                    resultDiv.style.background = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                } else {
+                    throw new Error('Apache not responding');
+                }
+            } catch (error) {
+                resultDiv.textContent = '❌ XAMPP Apache is not running!\n\nPlease start Apache in XAMPP Control Panel.';
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        async function testDatabaseStructure() {
+            const resultDiv = document.getElementById('db-structure-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing database structure...';
+            
+            try {
+                const response = await fetch('backend/check-users.php');
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ Database structure is correct!\n\nDatabase: ${result.database_info.current_database}\nTotal users: ${result.total_users}\nTable structure: ${result.table_structure.length} columns\n\n` + JSON.stringify(result, null, 2);
+                    resultDiv.style.background = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Database structure issue!\n\nError: ${error.message}\n\nPlease import backend/database.sql in phpMyAdmin.`;
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        async function testConnection() {
+            const resultDiv = document.getElementById('connection-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing database connection...';
+            
+            try {
+                const response = await fetch('backend/test-connection.php');
+                const result = await response.text();
+                
+                resultDiv.innerHTML = result;
+                resultDiv.style.background = '#d4edda';
+                resultDiv.style.color = '#155724';
+            } catch (error) {
+                resultDiv.textContent = `❌ Connection test failed!\n\nError: ${error.message}`;
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        async function testRegistrationAPI() {
+            const resultDiv = document.getElementById('registration-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing registration API...';
+            
+            const testData = {
+                username: 'testuser_' + Date.now(),
+                first_name: 'Test',
+                last_name: 'User',
+                email: 'test_' + Date.now() + '@example.com',
+                password: 'password123',
+                phone: '+251911234567'
+            };
+            
+            try {
+                const response = await fetch('backend/api/auth/register-debug.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ Registration API works!\n\nUser created with ID: ${result.data.user.user_id}\n\n` + JSON.stringify(result, null, 2);
+                    resultDiv.style.background = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                } else {
+                    resultDiv.textContent = `❌ Registration API failed!\n\n` + JSON.stringify(result, null, 2);
+                    resultDiv.style.background = '#f8d7da';
+                    resultDiv.style.color = '#721c24';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Registration API error!\n\nError: ${error.message}`;
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        async function checkUsers() {
+            const resultDiv = document.getElementById('users-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Checking database users...';
+            
+            try {
+                const response = await fetch('backend/check-users.php');
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ Found ${result.total_users} users in database!\n\n` + JSON.stringify(result, null, 2);
+                    resultDiv.style.background = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Failed to check users!\n\nError: ${error.message}`;
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        // Auto-run basic tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(testXAMPPConnection, 1000);
+        });
+    </script>
+</body>
+</html>

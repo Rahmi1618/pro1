@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Search Functionality</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div style="padding: 2rem;">
+        <h1>Search Functionality Test</h1>
+        
+        <!-- Search Container -->
+        <div class="search-container" style="max-width: 600px; margin: 2rem 0;">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="medicine-search" placeholder="Search for medicines, brands, or conditions..." autocomplete="off">
+                <button onclick="searchMedicine()" class="search-btn">
+                    <span>Search</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="search-suggestions">
+                <span class="suggestion-tag" onclick="quickSearch('Paracetamol')">Paracetamol</span>
+                <span class="suggestion-tag" onclick="quickSearch('Amoxicillin')">Amoxicillin</span>
+                <span class="suggestion-tag" onclick="quickSearch('Ibuprofen')">Ibuprofen</span>
+                <span class="suggestion-tag" onclick="quickSearch('German')">German</span>
+            </div>
+        </div>
+        
+        <!-- Results Count -->
+        <div id="results-count" style="margin: 1rem 0; font-weight: bold;"></div>
+        
+        <!-- Medicine Grid -->
+        <div id="medicine-grid" class="medicine-grid"></div>
+        
+        <!-- Test Instructions -->
+        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Type "para" in the search box - should show Paracetamol medicines</li>
+                <li>Try typing "german" - should show German medicines</li>
+                <li>Click on suggestion tags to test quick search</li>
+                <li>Try typing "antibiotic" - should show antibiotic medicines</li>
+                <li>Clear the search to see all medicines</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page loaded');
+            console.log('Available medicines:', extendedMedicines.length);
+            
+            // Show all medicines initially
+            filteredMedicines = [...extendedMedicines];
+            displayMedicines();
+            
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+                resultsCount.textContent = `Showing ${filteredMedicines.length} medicines`;
+            }
+        });
+    </script>
+</body>
+</html>

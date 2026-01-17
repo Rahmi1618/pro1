@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test User Display - PharmaCare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .auth-menu {
+            background: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #2563eb;
+        }
+        .example {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>User Display Test - First Name Only</h1>
+        
+        <p>This test demonstrates the updated user display functionality that shows only the first name in the welcome message.</p>
+        
+        <div class="example">
+            <h3>Before (Full Name):</h3>
+            <div class="auth-menu">Welcome, Huba Awe</div>
+        </div>
+        
+        <div class="example">
+            <h3>After (First Name Only):</h3>
+            <div class="auth-menu" id="auth-menu">Welcome, Huba</div>
+        </div>
+        
+        <h3>Test Different User Scenarios:</h3>
+        <button class="btn" onclick="testUser1()">Test: Huba Awe</button>
+        <button class="btn" onclick="testUser2()">Test: John Smith</button>
+        <button class="btn" onclick="testUser3()">Test: Username Only</button>
+        <button class="btn" onclick="testLogout()">Test: Logged Out</button>
+        
+        <div class="example">
+            <h3>Current Display:</h3>
+            <div class="auth-menu" id="current-display">Click a test button above</div>
+        </div>
+        
+        <h3>Implementation Details:</h3>
+        <p>The change was made in <code>js/app.js</code> in the <code>updateAuthUI()</code> function:</p>
+        <pre style="background: #f3f4f6; padding: 15px; border-radius: 5px; overflow-x: auto;">
+// OLD CODE:
+const displayName = currentUser.first_name ? 
+    `${currentUser.first_name} ${currentUser.last_name}` : 
+    currentUser.username;
+
+// NEW CODE:
+const displayName = currentUser.first_name || currentUser.username;
+        </pre>
+    </div>
+
+    <script>
+        // Simulate the updated updateAuthUI function
+        function updateAuthUI(user) {
+            const authMenu = document.getElementById('current-display');
+            if (user) {
+                // Display only the first name, or username if first_name is not available
+                const displayName = user.first_name || user.username;
+                authMenu.innerHTML = `Welcome, ${displayName} <a href="#" onclick="testLogout()" style="margin-left: 10px; color: #3b82f6;">Logout</a>`;
+            } else {
+                authMenu.innerHTML = '<a href="#" style="color: #3b82f6;">Login</a>';
+            }
+        }
+
+        function testUser1() {
+            const user = {
+                id: 1,
+                username: 'huba_awe',
+                first_name: 'Huba',
+                last_name: 'Awe',
+                email: 'huba@example.com'
+            };
+            updateAuthUI(user);
+        }
+
+        function testUser2() {
+            const user = {
+                id: 2,
+                username: 'john_smith',
+                first_name: 'John',
+                last_name: 'Smith',
+                email: 'john@example.com'
+            };
+            updateAuthUI(user);
+        }
+
+        function testUser3() {
+            const user = {
+                id: 3,
+                username: 'testuser123',
+                email: 'test@example.com'
+                // No first_name or last_name
+            };
+            updateAuthUI(user);
+        }
+
+        function testLogout() {
+            updateAuthUI(null);
+        }
+    </script>
+</body>
+</html>

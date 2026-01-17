@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCare - Improved Hamburger Menu Demo</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .demo-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 9999;
+            max-width: 300px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .demo-info h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .demo-info ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        .demo-info li {
+            margin-bottom: 5px;
+        }
+        .demo-content {
+            padding: 100px 20px 50px;
+            text-align: center;
+        }
+        .demo-content h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .demo-content p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        .resize-instruction {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-info">
+        <h4><i class="fas fa-info-circle"></i> Hamburger Menu Demo</h4>
+        <p><strong>Improvements Made:</strong></p>
+        <ul>
+            <li>Simplified HTML structure</li>
+            <li>Clean 3-bar hamburger design</li>
+            <li>Smooth X transformation</li>
+            <li>Better responsive behavior</li>
+            <li>Animated menu items</li>
+            <li>Improved touch targets</li>
+        </ul>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Medicines</a></li>
+                <li><a href="#">Pharmacies</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="demo-content">
+        <h1>Improved Hamburger Menu</h1>
+        <p>
+            The navigation has been updated with a cleaner, more responsive hamburger menu. 
+            The HTML structure is now simplified with just three bars that transform smoothly 
+            into an X when activated.
+        </p>
+        
+        <div class="resize-instruction">
+            <h3><i class="fas fa-mobile-alt"></i> Test Instructions</h3>
+            <p>
+                <strong>1.</strong> Resize your browser window to mobile size (below 769px)<br>
+                <strong>2.</strong> Click the hamburger menu (3 bars) in the top right<br>
+                <strong>3.</strong> Watch the smooth transformation to X and menu slide-in<br>
+                <strong>4.</strong> Notice the animated menu items appearing one by one<br>
+                <strong>5.</strong> Click any menu item or the X to close
+            </p>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <h3>Key Features:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; box-shadow: var(--shadow-md);">
+                    <h4><i class="fas fa-code"></i> Clean HTML</h4>
+                    <p>Simplified structure with just 3 span elements for the bars</p>
+                </div>
+                <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; box-shadow: var(--shadow-md);">
+                    <h4><i class="fas fa-magic"></i> Smooth Animation</h4>
+                    <p>CSS transforms create perfect hamburger-to-X transition</p>
+                </div>
+                <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; box-shadow: var(--shadow-md);">
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile Optimized</h4>
+                    <p>Perfect touch targets and responsive behavior</p>
+                </div>
+                <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; box-shadow: var(--shadow-md);">
+                    <h4><i class="fas fa-list"></i> Animated Items</h4>
+                    <p>Menu items slide in with staggered animation delays</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile navigation toggle function
+        function toggleMobileNav() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('nav-open');
+                
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Close menu when clicking on menu items
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navToggle = document.getElementById('nav-toggle');
+                const navMenu = document.getElementById('nav-menu');
+                
+                if (navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('nav-open');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navMenu = document.getElementById('nav-menu');
+            const navToggle = document.getElementById('nav-toggle');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (navMenu.classList.contains('active') && 
+                !navContainer.contains(e.target)) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('nav-open');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

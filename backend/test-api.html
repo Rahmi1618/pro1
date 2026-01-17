@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCare API Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .test-button:hover {
+            background: #1d4ed8;
+        }
+        .test-button.success {
+            background: #10b981;
+        }
+        .test-button.error {
+            background: #ef4444;
+        }
+        .result {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .input-group {
+            margin: 1rem 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .auth-token {
+            background: #dbeafe;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 PharmaCare API Test Interface</h1>
+        <p>Test the PharmaCare backend API endpoints. Make sure the server is running on <code>http://localhost:3000</code></p>
+        
+        <div id="server-status">
+            <h3>Server Status <span id="status-indicator" class="status pending">Checking...</span></h3>
+            <button class="test-button" onclick="checkServerHealth()">Check Health</button>
+            <div id="health-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🔐 Authentication Tests</h2>
+        
+        <div class="test-section">
+            <h3>Register New User</h3>
+            <div class="input-group">
+                <label>Username:</label>
+                <input type="text" id="reg-username" value="testuser" placeholder="Enter username">
+            </div>
+            <div class="input-group">
+                <label>Email:</label>
+                <input type="email" id="reg-email" value="test@example.com" placeholder="Enter email">
+            </div>
+            <div class="input-group">
+                <label>Password:</label>
+                <input type="password" id="reg-password" value="password123" placeholder="Enter password">
+            </div>
+            <div class="input-group">
+                <label>Phone:</label>
+                <input type="text" id="reg-phone" value="+251911234567" placeholder="Enter phone">
+            </div>
+            <button class="test-button" onclick="testRegister()">Register User</button>
+            <div id="register-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Login User</h3>
+            <div class="input-group">
+                <label>Username:</label>
+                <input type="text" id="login-username" value="testuser" placeholder="Enter username">
+            </div>
+            <div class="input-group">
+                <label>Password:</label>
+                <input type="password" id="login-password" value="password123" placeholder="Enter password">
+            </div>
+            <button class="test-button" onclick="testLogin()">Login</button>
+            <div id="login-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div id="auth-token-display" style="display: none;">
+            <h4>Authentication Token:</h4>
+            <div class="auth-token" id="auth-token"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>💊 Medicine Tests</h2>
+        
+        <div class="test-section">
+            <h3>Get All Medicines</h3>
+            <button class="test-button" onclick="testGetMedicines()">Get Medicines</button>
+            <div id="medicines-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Search Medicines</h3>
+            <div class="input-group">
+                <label>Search Query:</label>
+                <input type="text" id="search-query" value="paracetamol" placeholder="Enter medicine name">
+            </div>
+            <button class="test-button" onclick="testSearchMedicines()">Search</button>
+            <div id="search-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🏥 Pharmacy Tests</h2>
+        
+        <div class="test-section">
+            <h3>Get All Pharmacies</h3>
+            <button class="test-button" onclick="testGetPharmacies()">Get Pharmacies</button>
+            <div id="pharmacies-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Get Pharmacy by ID</h3>
+            <div class="input-group">
+                <label>Pharmacy ID:</label>
+                <input type="number" id="pharmacy-id" value="1" placeholder="Enter pharmacy ID">
+            </div>
+            <button class="test-button" onclick="testGetPharmacy()">Get Pharmacy</button>
+            <div id="pharmacy-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🛒 Order Tests (Requires Authentication)</h2>
+        
+        <div class="test-section">
+            <h3>Create Order</h3>
+            <div class="input-group">
+                <label>Pharmacy ID:</label>
+                <input type="number" id="order-pharmacy-id" value="1" placeholder="Enter pharmacy ID">
+            </div>
+            <div class="input-group">
+                <label>Medicine ID:</label>
+                <input type="number" id="order-medicine-id" value="1" placeholder="Enter medicine ID">
+            </div>
+            <div class="input-group">
+                <label>Quantity:</label>
+                <input type="number" id="order-quantity" value="2" placeholder="Enter quantity">
+            </div>
+            <div class="input-group">
+                <label>Delivery Address:</label>
+                <input type="text" id="order-address" value="123 Main St, Kombolcha" placeholder="Enter address">
+            </div>
+            <div class="input-group">
+                <label>Phone:</label>
+                <input type="text" id="order-phone" value="+251911234567" placeholder="Enter phone">
+            </div>
+            <button class="test-button" onclick="testCreateOrder()">Create Order</button>
+            <div id="order-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Get User Orders</h3>
+            <button class="test-button" onclick="testGetOrders()">Get Orders</button>
+            <div id="orders-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let authToken = null;
+
+        // Check server health
+        async function checkServerHealth() {
+            const resultDiv = document.getElementById('health-result');
+            const statusIndicator = document.getElementById('status-indicator');
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+                
+                if (response.ok) {
+                    statusIndicator.textContent = 'Online';
+                    statusIndicator.className = 'status success';
+                } else {
+                    statusIndicator.textContent = 'Error';
+                    statusIndicator.className = 'status error';
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+                statusIndicator.textContent = 'Offline';
+                statusIndicator.className = 'status error';
+            }
+        }
+
+        // Test user registration
+        async function testRegister() {
+            const resultDiv = document.getElementById('register-result');
+            
+            const userData = {
+                username: document.getElementById('reg-username').value,
+                email: document.getElementById('reg-email').value,
+                password: document.getElementById('reg-password').value,
+                phone: document.getElementById('reg-phone').value,
+                address: 'Kombolcha, Ethiopia'
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+                
+                if (data.token) {
+                    authToken = data.token;
+                    showAuthToken();
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test user login
+        async function testLogin() {
+            const resultDiv = document.getElementById('login-result');
+            
+            const loginData = {
+                username: document.getElementById('login-username').value,
+                password: document.getElementById('login-password').value
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+                
+                if (data.token) {
+                    authToken = data.token;
+                    showAuthToken();
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Show auth token
+        function showAuthToken() {
+            const tokenDisplay = document.getElementById('auth-token-display');
+            const tokenDiv = document.getElementById('auth-token');
+            
+            tokenDiv.textContent = authToken;
+            tokenDisplay.style.display = 'block';
+        }
+
+        // Test get medicines
+        async function testGetMedicines() {
+            const resultDiv = document.getElementById('medicines-result');
+            
+            try {
+                const response = await fetch(`${API_BASE}/medicines`);
+                const data = await response.json();
+                
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test search medicines
+        async function testSearchMedicines() {
+            const resultDiv = document.getElementById('search-result');
+            
+            const searchData = {
+                query: document.getElementById('search-query').value,
+                limit: 10
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/medicines/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(searchData)
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test get pharmacies
+        async function testGetPharmacies() {
+            const resultDiv = document.getElementById('pharmacies-result');
+            
+            try {
+                const response = await fetch(`${API_BASE}/pharmacies`);
+                const data = await response.json();
+                
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test get pharmacy by ID
+        async function testGetPharmacy() {
+            const resultDiv = document.getElementById('pharmacy-result');
+            const pharmacyId = document.getElementById('pharmacy-id').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/pharmacies/${pharmacyId}`);
+                const data = await response.json();
+                
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test create order
+        async function testCreateOrder() {
+            const resultDiv = document.getElementById('order-result');
+            
+            if (!authToken) {
+                resultDiv.textContent = 'Error: Please login first to create orders';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const orderData = {
+                pharmacy_id: parseInt(document.getElementById('order-pharmacy-id').value),
+                items: [{
+                    medicine_id: parseInt(document.getElementById('order-medicine-id').value),
+                    quantity: parseInt(document.getElementById('order-quantity').value)
+                }],
+                delivery_address: document.getElementById('order-address').value,
+                phone: document.getElementById('order-phone').value,
+                payment_method: 'telebirr'
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(orderData)
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Test get orders
+        async function testGetOrders() {
+            const resultDiv = document.getElementById('orders-result');
+            
+            if (!authToken) {
+                resultDiv.textContent = 'Error: Please login first to view orders';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/orders`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Check server health on page load
+        window.addEventListener('load', function() {
+            checkServerHealth();
+        });
+    </script>
+</body>
+</html>

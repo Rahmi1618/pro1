@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/orders.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./medicines.html">Medicines</a></li>
+                <li><a href="./pharmacies.html">Pharmacies</a></li>
+                <li><a href="./orders.html" class="active">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Orders</h1>
+                <p>Track your medicine orders and manage your delivery preferences</p>
+                
+                <!-- Order Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-orders">0</span>
+                        <span class="stat-label">Total Orders</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="pending-orders">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="delivered-orders">0</span>
+                        <span class="stat-label">Delivered</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Filters -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-header">
+                    <h3>Filter Orders</h3>
+                    <button class="btn btn-success" onclick="showNewOrderModal()">
+                        <i class="fas fa-plus"></i> New Order
+                    </button>
+                </div>
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="status-filter" onchange="filterOrders()">
+                            <option value="">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select id="date-filter" onchange="filterOrders()">
+                            <option value="">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Pharmacy</label>
+                        <select id="pharmacy-filter" onchange="filterOrders()">
+                            <option value="">All Pharmacies</option>
+                            <option value="city-pharmacy">City Pharmacy</option>
+                            <option value="health-plus">Health Plus</option>
+                            <option value="medcare">MedCare</option>
+                            <option value="wellness">Wellness Pharmacy</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <div class="search-input">
+                            <input type="text" id="order-search" placeholder="Search by order ID or medicine name..." onkeyup="filterOrders()">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders List -->
+        <section id="orders-section" class="section">
+            <div class="container">
+                <div class="orders-header">
+                    <h2>Order History</h2>
+                    <div class="orders-actions">
+                        <button class="btn btn-outline" onclick="exportOrders()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-outline" onclick="refreshOrders()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Orders Grid -->
+                <div id="orders-grid" class="orders-grid">
+                    <!-- Orders will be loaded here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-orders" class="empty-state hidden">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>No Orders Found</h3>
+                    <p>You haven't placed any orders yet. Start by browsing our medicines.</p>
+                    <a href="./medicines.html" class="btn btn-success">
+                        <i class="fas fa-pills"></i> Browse Medicines
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Details Modal -->
+        <div id="order-modal" class="modal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h2><i class="fas fa-receipt"></i> Order Details</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="order-details"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Order Modal -->
+        <div id="new-order-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-plus"></i> Quick Order</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="quick-order-form">
+                        <div class="form-group">
+                            <input type="text" id="quick-medicine" placeholder=" " required>
+                            <label for="quick-medicine">Medicine Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="quick-quantity" placeholder=" " min="1" value="1" required>
+                            <label for="quick-quantity">Quantity</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="quick-pharmacy" required>
+                                <option value="">Select Pharmacy</option>
+                                <option value="city-pharmacy">City Pharmacy</option>
+                                <option value="health-plus">Health Plus</option>
+                                <option value="medcare">MedCare</option>
+                                <option value="wellness">Wellness Pharmacy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="quick-notes" placeholder="Special instructions (optional)"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-shopping-cart"></i> Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Tracking Modal -->
+        <div id="tracking-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-truck"></i> Order Tracking</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="tracking-details"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cancel Order Modal -->
+        <div id="cancel-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-times-circle"></i> Cancel Order</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="cancel-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Are you sure you want to cancel this order?</p>
+                        <p class="warning-text">This action cannot be undone.</p>
+                    </div>
+                    <form id="cancel-form">
+                        <div class="form-group">
+                            <label>Reason for cancellation</label>
+                            <select id="cancel-reason" required>
+                                <option value="">Select reason</option>
+                                <option value="changed-mind">Changed my mind</option>
+                                <option value="found-cheaper">Found cheaper alternative</option>
+                                <option value="no-longer-needed">No longer needed</option>
+                                <option value="delivery-delay">Delivery taking too long</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="cancel-comments" placeholder="Additional comments (optional)"></textarea>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-outline" onclick="closeModal()">Keep Order</button>
+                            <button type="submit" class="btn btn-error">Cancel Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div id="chatbot-toggle" class="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-robot"></i>
+            <span class="chatbot-badge">AI</span>
+        </div>
+
+        <div id="chatbot-window" class="chatbot-window hidden">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i>
+                    <span>Order Assistant</span>
+                </div>
+                <div class="chatbot-controls">
+                    <button onclick="minimizeChatbot()" class="chatbot-control">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button onclick="closeChatbot()" class="chatbot-control">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hi! I can help you with your orders. I can:</p>
+                        <ul>
+                            <li>Track your current orders</li>
+                            <li>Help you place new orders</li>
+                            <li>Explain delivery options</li>
+                            <li>Assist with order modifications</li>
+                        </ul>
+                        <p>What would you like help with?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chatbot-quick-actions">
+                <button class="quick-action" onclick="sendQuickMessage('Track my order')">
+                    <i class="fas fa-truck"></i> Track Order
+                </button>
+                <button class="quick-action" onclick="sendQuickMessage('Place new order')">
+                    <i class="fas fa-plus"></i> New Order
+                </button>
+                <button class="quick-action" onclick="sendQuickMessage('Delivery options')">
+                    <i class="fas fa-shipping-fast"></i> Delivery Info
+                </button>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-message" placeholder="Ask about your orders..." onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendChatMessage()" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/orders.js"></script>
+</body>
+</html>

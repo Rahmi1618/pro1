@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PharmaCare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-left">
+            <div class="login-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-pills"></i>
+                    <span>PharmaCare</span>
+                </div>
+                <h1>Welcome Back</h1>
+                <p>Access your pharmacy management system</p>
+                <div class="login-features">
+                    <div class="feature-item">
+                        <i class="fas fa-search"></i>
+                        <span>Smart Medicine Search</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Price Comparison</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Assistant</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Online Ordering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-right">
+            <div class="login-form-container">
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="showLoginForm()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="tab-btn" onclick="showRegisterForm()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="login-form-section" class="form-section active">
+                    <h2>Sign In to Your Account</h2>
+                    <p class="form-subtitle">Enter your credentials to access your account</p>
+                    
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="username" placeholder="Username or Email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="password" placeholder="Password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <div class="divider">
+                            <span>Or continue with</span>
+                        </div>
+                        <div class="social-buttons">
+                            <button class="social-btn google">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register-form-section" class="form-section">
+                    <h2>Create New Account</h2>
+                    <p class="form-subtitle">Join PharmaCare to access all features</p>
+                    
+                    <form id="register-form" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="reg-first-name" placeholder="First Name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="reg-last-name" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-user-circle input-icon"></i>
+                                    <input type="text" id="reg-username" placeholder="Username" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" id="reg-email" placeholder="Email Address" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-phone input-icon"></i>
+                                <input type="tel" id="reg-phone" placeholder="Phone Number (+251911234567)" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="reg-password" placeholder="Password" required>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('reg-password')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('confirm-password')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-map-marker-alt input-icon"></i>
+                                <input type="text" id="reg-address" placeholder="Address (Optional)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="agree-terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="pages/terms-of-service.html" target="_blank">Terms of Service</a> and <a href="pages/privacy-policy.html" target="_blank">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+    
+    <!-- Alert Container -->
+    <div id="alert-container" class="alert-container"></div>
+    
+    <script src="js/login.js"></script>
+</body>
+</html>

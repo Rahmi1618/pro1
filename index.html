@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PharmaCare</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Font Awesome CDN - fallback if needed -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <!-- <style>
+      /* Fallback styles in case external CSS fails */
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        background: #f8fafc;
+      }
+      .loading-fallback {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 9999;
+      }
+    </style> -->
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <i class="fas fa-pills"></i>
+          <span>PharmaCare</span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li class="nav-header">
+            <div class="nav-header-content">
+              <i class="fas fa-pills"></i>
+              <span>PharmaCare Menu</span>
+            </div>
+          </li>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./components/medicines.html">Medicines</a></li>
+          <li><a href="./components/pharmacies.html">Pharmacies</a></li>
+          <li><a href="./components/orders.html">Orders</a></li>
+          <li><a href="./pages/help-center.html">Help Center</a></li>
+          <li><a href="./pages/contact-us.html">Contact</a></li>
+          <li id="auth-menu">
+            <a href="login.html">Login</a>
+          </li>
+        </ul>
+        <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+          <div class="nav-toggle-text">Menu</div>
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Home Section -->
+      <section id="home" class="hero">
+        <div class="hero-background">
+          <div class="hero-particles"></div>
+          <div class="hero-gradient"></div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-robot"></i>
+            <span>AI-Powered Healthcare</span>
+          </div>
+          <h1 class="hero-title">
+            Smart Pharmacy Management 
+            <span class="highlight">System</span>
+          </h1>
+          <p class="hero-description">
+            Find medicines, compare prices, and get intelligent recommendations
+            from trusted pharmacies across Ethiopia with our AI-powered platform
+          </p>
+          <div class="search-container">
+            <div class="search-wrapper">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="text"
+                id="medicine-search"
+                placeholder="Search for medicines, brands, or conditions..."
+              />
+              <button onclick="searchMedicine()" class="search-btn">
+                <span>Search</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+            <div class="search-suggestions">
+              <span class="suggestion-tag" onclick="quickSearch('Paracetamol')">Paracetamol</span>
+              <span class="suggestion-tag" onclick="quickSearch('Amoxicillin')">Amoxicillin</span>
+              <span class="suggestion-tag" onclick="quickSearch('Ibuprofen')">Ibuprofen</span>
+              <span class="suggestion-tag" onclick="quickSearch('Vitamin C')">Vitamin C</span>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item" data-count="500">
+              <span class="stat-number">0+</span>
+              <span class="stat-label">Medicines Available</span>
+            </div>
+            <div class="stat-item" data-count="50">
+              <span class="stat-number">0+</span>
+              <span class="stat-label">Partner Pharmacies</span>
+            </div>
+            <div class="stat-item" data-count="24">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">AI Assistant</span>
+            </div>
+            <div class="stat-item" data-count="1000">
+              <span class="stat-number">0+</span>
+              <span class="stat-label">Happy Customers</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="exploreFeatures()">
+              <i class="fas fa-rocket"></i>
+              Explore Features
+            </button>
+            <button class="btn btn-outline" onclick="watchDemo()">
+              <i class="fas fa-play"></i>
+              Watch Demo
+            </button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="floating-cards">
+            <div class="floating-card card-1">
+              <i class="fas fa-pills"></i>
+              <span>Smart Search</span>
+            </div>
+            <div class="floating-card card-2">
+              <i class="fas fa-chart-line"></i>
+              <span>Price Compare</span>
+            </div>
+            <div class="floating-card card-3">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Find Pharmacy</span>
+            </div>
+            <div class="floating-card card-4">
+              <i class="fas fa-truck"></i>
+              <span>Fast Delivery</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="section features-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-badge">
+              <i class="fas fa-star"></i>
+              <span>Why Choose PharmaCare</span>
+            </div>
+            <h2>Powerful Features for Modern Healthcare</h2>
+            <p>Experience the future of pharmacy management with our AI-powered platform</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3>AI-Powered Recommendations</h3>
+              <p>Get intelligent medicine suggestions based on your symptoms, medical history, and preferences</p>
+              <a href="./pages/ai-recommendations.html" class="feature-link">
+                Learn More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="feature-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <h3>Smart Price Comparison</h3>
+              <p>Compare prices across multiple pharmacies in real-time to find the best deals</p>
+              <a href="./components/medicines.html" class="feature-link">
+                Compare Now <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="feature-icon">
+                <i class="fas fa-map-marked-alt"></i>
+              </div>
+              <h3>Pharmacy Locator</h3>
+              <p>Find nearby pharmacies with real-time availability and directions</p>
+              <a href="./components/pharmacies.html" class="feature-link">
+                Find Pharmacy <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+              <div class="feature-icon">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <h3>Express Delivery</h3>
+              <p>Get your medicines delivered to your doorstep within 30 minutes</p>
+              <a href="./pages/home-delivery.html" class="feature-link">
+                Order Now <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3>Secure & Verified</h3>
+              <p>All pharmacies are verified and medicines are authentic with secure payment</p>
+              <a href="./pages/security.html" class="feature-link">
+                Security Info <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+              <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <h3>24/7 Support</h3>
+              <p>Round-the-clock customer support with AI chatbot and human assistance</p>
+              <a href="./pages/help-center.html" class="feature-link">
+                Get Help <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="section how-it-works-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-badge">
+              <i class="fas fa-cogs"></i>
+              <span>How It Works</span>
+            </div>
+            <h2>Simple Steps to Better Healthcare</h2>
+            <p>Get started with PharmaCare in just a few easy steps</p>
+          </div>
+          <div class="steps-container">
+            <div class="step-item" data-aos="fade-right" data-aos-delay="100">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h3>Search Medicine</h3>
+                <p>Search for medicines by name, condition, or upload your prescription</p>
+              </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Compare Prices</h3>
+                <p>View prices from multiple pharmacies and get AI recommendations</p>
+              </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item" data-aos="fade-left" data-aos-delay="300">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Place Order</h3>
+                <p>Choose your preferred pharmacy and place your order securely</p>
+              </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item" data-aos="fade-right" data-aos-delay="400">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-truck"></i>
+                </div>
+                <h3>Get Delivered</h3>
+                <p>Receive your medicines at your doorstep or pick up from pharmacy</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Medicines Section -->
+      <section id="popular-medicines" class="section popular-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-badge">
+              <i class="fas fa-fire"></i>
+              <span>Popular Medicines</span>
+            </div>
+            <h2>Most Searched Medicines</h2>
+            <p>Quick access to commonly needed medications</p>
+          </div>
+          <div class="popular-grid">
+            <div class="popular-card" onclick="searchMedicineByName('Paracetamol')">
+              <div class="popular-icon">
+                <i class="fas fa-tablets"></i>
+              </div>
+              <h3>Paracetamol</h3>
+              <p>Pain relief & fever reducer</p>
+              <div class="popular-price">From ETB 15</div>
+              <div class="popular-pharmacies">Available in 45+ pharmacies</div>
+            </div>
+            <div class="popular-card" onclick="searchMedicineByName('Amoxicillin')">
+              <div class="popular-icon">
+                <i class="fas fa-capsules"></i>
+              </div>
+              <h3>Amoxicillin</h3>
+              <p>Antibiotic for infections</p>
+              <div class="popular-price">From ETB 25</div>
+              <div class="popular-pharmacies">Available in 38+ pharmacies</div>
+            </div>
+            <div class="popular-card" onclick="searchMedicineByName('Ibuprofen')">
+              <div class="popular-icon">
+                <i class="fas fa-pills"></i>
+              </div>
+              <h3>Ibuprofen</h3>
+              <p>Anti-inflammatory</p>
+              <div class="popular-price">From ETB 20</div>
+              <div class="popular-pharmacies">Available in 42+ pharmacies</div>
+            </div>
+            <div class="popular-card" onclick="searchMedicineByName('Vitamin C')">
+              <div class="popular-icon">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <h3>Vitamin C</h3>
+              <p>Immune system support</p>
+              <div class="popular-price">From ETB 30</div>
+              <div class="popular-pharmacies">Available in 50+ pharmacies</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section id="testimonials" class="section testimonials-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-badge">
+              <i class="fas fa-quote-left"></i>
+              <span>Customer Reviews</span>
+            </div>
+            <h2>What Our Users Say</h2>
+            <p>Real feedback from satisfied customers across Ethiopia</p>
+          </div>
+          <div class="testimonials-slider">
+            <div class="testimonial-card active">
+              <div class="testimonial-content">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <p>"PharmaCare saved me so much time! I found the exact medicine I needed at the best price and got it delivered within 30 minutes. The AI recommendations were spot on!"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div class="author-info">
+                    <h4>Almaz Tadesse</h4>
+                    <span>Addis Ababa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <p>"As a pharmacy owner, PharmaCare has revolutionized our business. We get more customers and the inventory management is seamless. Highly recommended!"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div class="author-info">
+                    <h4>Dr. Bekele Mekonen</h4>
+                    <span>Kombolcha Pharmacy Owner</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <p>"The price comparison feature is amazing! I saved over 40% on my monthly medications. The platform is user-friendly and the support team is excellent."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div class="author-info">
+                    <h4>Hanan Ahmed</h4>
+                    <span>Dire Dawa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-controls">
+            <button class="testimonial-btn prev" onclick="prevTestimonial()">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="testimonial-dots">
+              <span class="dot active" onclick="currentTestimonial(1)"></span>
+              <span class="dot" onclick="currentTestimonial(2)"></span>
+              <span class="dot" onclick="currentTestimonial(3)"></span>
+            </div>
+            <button class="testimonial-btn next" onclick="nextTestimonial()">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section id="cta" class="section cta-section">
+        <div class="container">
+          <div class="cta-content">
+            <div class="cta-text">
+              <h2>Ready to Transform Your Healthcare Experience?</h2>
+              <p>Join thousands of satisfied customers who trust PharmaCare for their medication needs</p>
+            </div>
+            <div class="cta-actions">
+              <button class="btn btn-primary btn-large" onclick="getStarted()">
+                <i class="fas fa-rocket"></i>
+                Get Started Now
+              </button>
+              <button class="btn btn-outline btn-large" onclick="learnMore()">
+                <i class="fas fa-info-circle"></i>
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Medicine Search Results -->
+      <section id="search-results" class="section hidden">
+        <div class="container">
+          <div class="section-header">
+            <h2>Search Results</h2>
+            <p>Smart search results tailored to your needs</p>
+          </div>
+          <div id="medicine-list" class="medicine-grid"></div>
+        </div>
+      </section>
+
+      <!-- Price Comparison -->
+      <section id="price-comparison" class="section hidden">
+        <div class="container">
+          <div class="section-header">
+            <h2>Price Comparison</h2>
+            <p>
+              Compare prices across multiple pharmacies to find the best deals
+            </p>
+          </div>
+          <div id="comparison-table"></div>
+        </div>
+      </section>
+
+      <!-- Pharmacy Recommendations -->
+      <section id="recommendations" class="section hidden">
+        <div class="container">
+          <div class="section-header">
+            <h2>Smart Recommendations</h2>
+            <p>
+              Personalized recommendations based on location, price, and
+              availability
+            </p>
+          </div>
+          <div id="recommendation-list" class="recommendation-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div id="chatbot-container" class="chatbot-container">
+      <div id="chatbot-toggle" class="chatbot-toggle" onclick="toggleChatbot()">
+        <i class="fas fa-robot"></i>
+        <span class="chatbot-badge">AI</span>
+      </div>
+
+      <div id="chatbot-window" class="chatbot-window hidden">
+        <div class="chatbot-header">
+          <div class="chatbot-title">
+            <i class="fas fa-robot"></i>
+            <span>PharmaCare AI Assistant</span>
+          </div>
+          <div class="chatbot-controls">
+            <button onclick="minimizeChatbot()" class="chatbot-control">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button onclick="closeChatbot()" class="chatbot-control">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="chatbot-messages" id="chatbot-messages">
+          <div class="message bot-message">
+            <div class="message-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+              <p>
+                Hello! I'm your PharmaCare AI Assistant. I can help you with:
+              </p>
+              <ul>
+                <li>Finding medicines and their information</li>
+                <li>Comparing prices across pharmacies</li>
+                <li>Recommending the best pharmacy for your needs</li>
+                <li>Answering questions about medications</li>
+                <li>Helping with orders and prescriptions</li>
+              </ul>
+              <p>How can I assist you today?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chatbot-quick-actions">
+          <button
+            class="quick-action"
+            onclick="sendQuickMessage('Find paracetamol')"
+          >
+            <i class="fas fa-pills"></i> Find Medicine
+          </button>
+          <button
+            class="quick-action"
+            onclick="sendQuickMessage('Compare prices')"
+          >
+            <i class="fas fa-chart-bar"></i> Compare Prices
+          </button>
+          <button
+            class="quick-action"
+            onclick="sendQuickMessage('Nearest pharmacy')"
+          >
+            <i class="fas fa-map-marker-alt"></i> Find Pharmacy
+          </button>
+        </div>
+
+        <div class="chatbot-input">
+          <input
+            type="text"
+            id="chatbot-message"
+            placeholder="Type your message..."
+            onkeypress="handleChatKeyPress(event)"
+          />
+          <button onclick="sendChatMessage()" class="send-button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+          <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="login-form">
+            <div class="form-group">
+              <input type="text" id="username" placeholder=" " required />
+              <label for="username">Username</label>
+            </div>
+            <div class="form-group">
+              <input type="password" id="password" placeholder=" " required />
+              <label for="password">Password</label>
+            </div>
+            <button type="submit">
+              <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p>
+            Don't have an account?
+            <a href="#" onclick="showRegister()">Create Account</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+          <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="register-form">
+            <div class="form-group">
+              <input type="text" id="reg-username" placeholder=" " required />
+              <label for="reg-username">Username</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="reg-email" placeholder=" " required />
+              <label for="reg-email">Email Address</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="reg-password"
+                placeholder=" "
+                required
+              />
+              <label for="reg-password">Password</label>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="reg-phone" placeholder=" " required />
+              <label for="reg-phone">Phone Number</label>
+            </div>
+            <button type="submit">
+              <i class="fas fa-user-plus"></i> Create Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-credit-card"></i> Secure Payment</h2>
+          <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div id="payment-details" class="payment-summary"></div>
+          <form id="payment-form">
+            <div class="form-group">
+              <input type="tel" id="telebirr-phone" placeholder=" " required />
+              <label for="telebirr-phone">TeleBirr Phone Number</label>
+            </div>
+            <button type="submit">
+              <i class="fas fa-lock"></i> Pay Securely
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Main Footer Content -->
+        <div class="footer-main">
+          <div class="footer-section">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+              </div>
+              <p class="footer-description">
+                Your trusted AI-integrated pharmacy management system. Find medicines, compare prices, and get intelligent recommendations from verified pharmacies across Ethiopia.
+              </p>
+              <div class="footer-social">
+                <a href="#" class="social-link" aria-label="Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Telegram">
+                  <i class="fab fa-telegram-plane"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Services</h4>
+            <ul class="footer-links">
+              <li><a href="./components/medicines.html">Medicine Search</a></li>
+              <li><a href="./components/medicines.html">Price Comparison</a></li>
+              <li><a href="./components/pharmacies.html">Pharmacy Finder</a></li>
+              <li><a href="./components/orders.html">Online Ordering</a></li>
+              <li><a href="./pages/prescription-upload.html">Prescription Upload</a></li>
+              <li><a href="./pages/ai-recommendations.html">AI Recommendations</a></li>
+              <li><a href="./pages/home-delivery.html">Home Delivery</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">For Pharmacies</h4>
+            <ul class="footer-links">
+              <li><a href="./pages/pharmacy-registration.html">Register Your Pharmacy</a></li>
+              <li><a href="./pages/inventory-management.html">Inventory Management</a></li>
+              <li><a href="./pages/order-processing.html">Order Processing</a></li>
+              <li><a href="./pages/analytics-dashboard.html">Analytics Dashboard</a></li>
+              <li><a href="./pages/delivery-coordination.html">Delivery Coordination</a></li>
+              <li><a href="./pages/customer-support.html">Customer Support Tools</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Support</h4>
+            <ul class="footer-links">
+              <li><a href="./pages/help-center.html">Help Center</a></li>
+              <li><a href="./pages/contact-us.html">Contact Us</a></li>
+              <li><a href="./pages/faq.html">FAQ</a></li>
+              <li><a href="./pages/live-chat.html">Live Chat Support</a></li>
+              <li><a href="./pages/report-issue.html">Report an Issue</a></li>
+              <li><a href="./pages/feedback.html">Feedback</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Contact Info</h4>
+            <div class="footer-contact">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <p>Wollo University</p>
+                  <p>Kombolcha Institute of Technology</p>
+                  <p>Kombolcha, Ethiopia</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <p>+251 911 234 567</p>
+                  <p>+251 911 234 568</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <p>info@pharmacare.et</p>
+                  <p>support@pharmacare.et</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <p>24/7 AI Support</p>
+                  <p>Mon-Fri: 8AM-6PM (Human Support)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-newsletter">
+          <div class="newsletter-content">
+            <div class="newsletter-info">
+              <h4>Stay Updated</h4>
+              <p>Subscribe to get the latest updates on new medicines, pharmacy partnerships, and health tips.</p>
+            </div>
+            <form class="newsletter-form" id="newsletter-form">
+              <div class="newsletter-input">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="footer-payments">
+          <h4>Secure Payment Methods</h4>
+          <div class="payment-methods">
+            <div class="payment-item">
+              <i class="fas fa-mobile-alt"></i>
+              <span>TeleBirr</span>
+            </div>
+            <div class="payment-item">
+              <i class="fas fa-university"></i>
+              <span>Bank Transfer</span>
+            </div>
+            <div class="payment-item">
+              <i class="fas fa-credit-card"></i>
+              <span>Credit Cards</span>
+            </div>
+            <div class="payment-item">
+              <i class="fas fa-money-bill-wave"></i>
+              <span>Cash on Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <div class="footer-legal">
+              <p>&copy; 2024 PharmaCare. All rights reserved.</p>
+              <div class="legal-links">
+                <a href="./pages/privacy-policy.html">Privacy Policy</a>
+                <a href="./pages/terms-of-service.html">Terms of Service</a>
+                <a href="./pages/cookie-policy.html">Cookie Policy</a>
+                <a href="./pages/data-protection.html">Data Protection</a>
+              </div>
+            </div>
+            <div class="footer-certifications">
+              <div class="cert-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>SSL Secured</span>
+              </div>
+              <div class="cert-item">
+                <i class="fas fa-check-circle"></i>
+                <span>FDA Approved</span>
+              </div>
+              <div class="cert-item">
+                <i class="fas fa-award"></i>
+                <span>ISO Certified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="js/app.js"></script>
+    <script>
+      // Debug script to check what's happening
+      console.log('Debug: HTML loaded');
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Debug: DOM Content Loaded');
+        
+        // Check if CSS is loaded
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+          const styles = window.getComputedStyle(navbar);
+          console.log('Debug: Navbar background color:', styles.backgroundColor);
+        }
+        
+        // Check if main content is visible
+        const hero = document.querySelector('.hero');
+        if (hero) {
+          console.log('Debug: Hero section found');
+        } else {
+          console.log('Debug: Hero section NOT found');
+        }
+        
+        // Force show content after 2 seconds
+        setTimeout(function() {
+          document.body.style.visibility = 'visible';
+          document.body.style.opacity = '1';
+          console.log('Debug: Forced content visibility');
+        }, 2000);
+      });
+      
+      window.addEventListener('load', function() {
+        console.log('Debug: Window fully loaded');
+      });
+    </script>
+  </body>
+</html>

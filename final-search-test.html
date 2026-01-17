@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Search Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(135deg, #2563eb, #1d4ed8); min-height: 100vh; padding: 2rem;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="background: white; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+            <h1 style="text-align: center; color: #2563eb; margin-bottom: 2rem;">
+                <i class="fas fa-search"></i> Final Search Container Test
+            </h1>
+            
+            <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 3rem 2rem; border-radius: 12px; text-align: center;">
+                <h2>Medicine Search</h2>
+                <p>Testing the exact search container from medicines.html</p>
+                
+                <!-- EXACT COPY from medicines.html -->
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="medicine-search" placeholder="Search for medicines, brands, or conditions..." autocomplete="off">
+                        <button onclick="searchMedicine()" class="search-btn">
+                            <span>Search</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="search-suggestions">
+                        <span class="suggestion-tag" onclick="quickSearch('Paracetamol')">Paracetamol</span>
+                        <span class="suggestion-tag" onclick="quickSearch('Amoxicillin')">Amoxicillin</span>
+                        <span class="suggestion-tag" onclick="quickSearch('Ibuprofen')">Ibuprofen</span>
+                        <span class="suggestion-tag" onclick="quickSearch('Vitamin C')">Vitamin C</span>
+                        <span class="suggestion-tag" onclick="quickSearch('German')">German</span>
+                        <span class="suggestion-tag" onclick="quickSearch('Ethiopian')">Ethiopian</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div style="margin-top: 2rem;">
+                <div id="results-count" style="font-weight: bold; color: #2563eb; margin: 1rem 0; padding: 0.5rem 1rem; background: #f0f9ff; border-radius: 8px; display: inline-block;">
+                    Ready to search...
+                </div>
+                
+                <!-- Quick test buttons -->
+                <div style="margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button onclick="testDirectSearch('para')" class="btn btn-outline">Test "para"</button>
+                    <button onclick="testDirectSearch('german')" class="btn btn-outline">Test "german"</button>
+                    <button onclick="testDirectSearch('antibiotic')" class="btn btn-outline">Test "antibiotic"</button>
+                    <button onclick="clearSearch()" class="btn btn-outline">Clear</button>
+                </div>
+                
+                <div id="medicine-grid" class="medicine-grid"></div>
+            </div>
+            
+            <!-- Status -->
+            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-top: 2rem; font-family: monospace; font-size: 0.9rem;">
+                <h4>Status Check:</h4>
+                <div id="status-info">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        function testDirectSearch(query) {
+            console.log('Direct test search:', query);
+            const input = document.getElementById('medicine-search');
+            input.value = query;
+            
+            // Trigger the search
+            if (typeof performRealTimeSearch === 'function') {
+                performRealTimeSearch(query);
+            } else if (typeof searchMedicine === 'function') {
+                searchMedicine();
+            } else {
+                console.error('No search function available');
+            }
+        }
+        
+        function updateStatus() {
+            const statusDiv = document.getElementById('status-info');
+            const searchInput = document.getElementById('medicine-search');
+            const searchIcon = document.querySelector('.search-icon');
+            const searchBtn = document.querySelector('.search-btn');
+            const suggestionTags = document.querySelectorAll('.suggestion-tag');
+            
+            statusDiv.innerHTML = `
+                <div>✅ Medicines data: ${typeof extendedMedicines !== 'undefined' ? extendedMedicines.length + ' medicines' : 'Not loaded'}</div>
+                <div>✅ Search input: ${searchInput ? 'Found' : 'Missing'}</div>
+                <div>✅ Search icon: ${searchIcon ? 'Found' : 'Missing'}</div>
+                <div>✅ Search button: ${searchBtn ? 'Found' : 'Missing'}</div>
+                <div>✅ Suggestion tags: ${suggestionTags.length} found</div>
+                <div>✅ searchMedicine function: ${typeof searchMedicine === 'function' ? 'Available' : 'Missing'}</div>
+                <div>✅ quickSearch function: ${typeof quickSearch === 'function' ? 'Available' : 'Missing'}</div>
+                <div>✅ performRealTimeSearch function: ${typeof performRealTimeSearch === 'function' ? 'Available' : 'Missing'}</div>
+                <div>✅ displayMedicines function: ${typeof displayMedicines === 'function' ? 'Available' : 'Missing'}</div>
+            `;
+        }
+        
+        // Test suggestion tag clicks
+        function testSuggestionTags() {
+            document.querySelectorAll('.suggestion-tag').forEach((tag, index) => {
+                tag.addEventListener('click', function() {
+                    console.log(`Suggestion tag ${index + 1} clicked:`, this.textContent);
+                });
+            });
+        }
+        
+        // Test search icon click
+        function testSearchIcon() {
+            const searchIcon = document.querySelector('.search-icon');
+            if (searchIcon) {
+                searchIcon.addEventListener('click', function() {
+                    console.log('Search icon clicked');
+                });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Final test page loaded');
+            
+            // Initialize
+            if (typeof extendedMedicines !== 'undefined' && typeof displayMedicines === 'function') {
+                filteredMedicines = [...extendedMedicines];
+                displayMedicines();
+                
+                const resultsCount = document.getElementById('results-count');
+                if (resultsCount) {
+                    resultsCount.textContent = `${filteredMedicines.length} medicines loaded and ready`;
+                }
+            }
+            
+            updateStatus();
+            testSuggestionTags();
+            testSearchIcon();
+            
+            // Test real-time search
+            const searchInput = document.getElementById('medicine-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    console.log('Input event triggered:', this.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

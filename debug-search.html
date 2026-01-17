@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Search - PharmaCare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background: #f8fafc; }
+        .debug-container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        .debug-section { margin-bottom: 30px; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; }
+        .debug-info { background: #f3f4f6; padding: 15px; border-radius: 5px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Search Debug Test</h1>
+        
+        <div class="debug-section">
+            <h2>Search Component</h2>
+            <div class="enhanced-search-container">
+                <div class="search-wrapper">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" id="medicine-search" placeholder="Type 'para' to test..." autocomplete="off">
+                    <div class="search-clear" id="search-clear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                    <button class="search-btn" onclick="searchMedicine()">
+                        <span>Search</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="debug-info">
+                <h4>Debug Info:</h4>
+                <p>Total medicines loaded: <span id="total-count">Loading...</span></p>
+                <p>Search function available: <span id="search-available">Checking...</span></p>
+                <p>Last search query: <span id="last-query">None</span></p>
+                <p>Last search results: <span id="last-results">None</span></p>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Medicine Results</h2>
+            <div id="medicine-results" class="section">
+                <div class="container">
+                    <div class="results-header">
+                        <h3>Available Medicines</h3>
+                        <div class="results-info">
+                            <span id="results-count">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="medicine-grid" class="medicine-grid"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Quick Tests</h2>
+            <button onclick="testSearch('para')" class="btn btn-primary">Test Search: "para"</button>
+            <button onclick="testSearch('ibuprofen')" class="btn btn-primary">Test Search: "ibuprofen"</button>
+            <button onclick="testSearch('german')" class="btn btn-primary">Test Search: "german"</button>
+            <button onclick="clearSearch()" class="btn btn-outline">Clear Search</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        function testSearch(query) {
+            const searchInput = document.getElementById('medicine-search');
+            if (searchInput) {
+                searchInput.value = query;
+                document.getElementById('last-query').textContent = query;
+                searchMedicine();
+            }
+        }
+        
+        function updateDebugInfo() {
+            document.getElementById('total-count').textContent = typeof extendedMedicines !== 'undefined' ? extendedMedicines.length : 'Not loaded';
+            document.getElementById('search-available').textContent = typeof searchMedicine === 'function' ? 'Yes' : 'No';
+        }
+        
+        // Override searchMedicine to add debug info
+        const originalSearchMedicine = window.searchMedicine;
+        window.searchMedicine = function() {
+            const query = document.getElementById('medicine-search').value.trim();
+            document.getElementById('last-query').textContent = query;
+            console.log('Debug: Search called with query:', query);
+            
+            if (originalSearchMedicine) {
+                originalSearchMedicine();
+                
+                // Update results count after search
+                setTimeout(() => {
+                    document.getElementById('last-results').textContent = filteredMedicines ? filteredMedicines.length : 'Unknown';
+                }, 1100);
+            }
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Debug page loaded');
+            
+            // Initialize
+            initializeMedicinesPage();
+            setupMedicineEventListeners();
+            loadMedicines();
+            
+            // Update debug info
+            setTimeout(() => {
+                updateDebugInfo();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

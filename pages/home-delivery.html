@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Delivery - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../components/medicines.html">Medicines</a></li>
+                <li><a href="../components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="../components/orders.html">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-hero">
+            <div class="hero-content">
+                <h1><i class="fas fa-truck"></i> Home Delivery Service</h1>
+                <p>Get your medicines delivered safely and quickly to your doorstep</p>
+            </div>
+        </section>
+
+        <section class="delivery-features">
+            <div class="container">
+                <h2>Why Choose Our Delivery Service?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Fast Delivery</h3>
+                        <p>Most orders delivered within 30-60 minutes in urban areas. Emergency medicines prioritized.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Safe & Secure</h3>
+                        <p>Temperature-controlled transport for sensitive medicines. Secure packaging and handling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Real-Time Tracking</h3>
+                        <p>Track your order from pharmacy to your door with live GPS tracking and status updates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-user-check"></i>
+                        <h3>Professional Delivery</h3>
+                        <p>Trained delivery personnel who understand the importance of medical deliveries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>Affordable Rates</h3>
+                        <p>Competitive delivery fees starting from ETB 10. Free delivery on orders above ETB 200.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Flexible Scheduling</h3>
+                        <p>Schedule deliveries at your convenience. Same-day or next-day delivery options available.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="delivery-process">
+            <div class="container">
+                <h2>How Delivery Works</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>Place Order</h3>
+                        <p>Select your medicines, choose a pharmacy, and place your order online.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Order Confirmation</h3>
+                        <p>Pharmacy confirms availability and prepares your order for delivery.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Out for Delivery</h3>
+                        <p>Professional delivery personnel picks up and delivers your order.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Safe Delivery</h3>
+                        <p>Receive your medicines at your doorstep with proper verification.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="delivery-areas">
+            <div class="container">
+                <h2>Delivery Coverage</h2>
+                <div class="coverage-grid">
+                    <div class="coverage-card">
+                        <h3><i class="fas fa-city"></i> Urban Areas</h3>
+                        <ul>
+                            <li>Addis Ababa - 30-45 minutes</li>
+                            <li>Kombolcha - 20-30 minutes</li>
+                            <li>Dessie - 30-45 minutes</li>
+                            <li>Bahir Dar - 45-60 minutes</li>
+                        </ul>
+                        <p class="delivery-fee">Delivery Fee: ETB 10-25</p>
+                    </div>
+                    <div class="coverage-card">
+                        <h3><i class="fas fa-mountain"></i> Rural Areas</h3>
+                        <ul>
+                            <li>Surrounding villages - 1-3 hours</li>
+                            <li>Remote locations - Same day</li>
+                            <li>Mountain areas - Next day</li>
+                            <li>Special arrangements available</li>
+                        </ul>
+                        <p class="delivery-fee">Delivery Fee: ETB 25-50</p>
+                    </div>
+                    <div class="coverage-card">
+                        <h3><i class="fas fa-ambulance"></i> Emergency Delivery</h3>
+                        <ul>
+                            <li>Critical medicines - 15-30 minutes</li>
+                            <li>24/7 availability</li>
+                            <li>Priority handling</li>
+                            <li>Direct pharmacy coordination</li>
+                        </ul>
+                        <p class="delivery-fee">Emergency Fee: ETB 50-100</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="delivery-faq">
+            <div class="container">
+                <h2>Delivery FAQ</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What if I'm not home during delivery?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our delivery personnel will call you before arrival. If you're not available, we can leave the medicine with a trusted neighbor, reschedule delivery, or arrange pickup from the pharmacy.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>How do you ensure medicine quality during delivery?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We use temperature-controlled delivery bags for sensitive medicines, secure packaging to prevent damage, and trained personnel who understand proper handling procedures.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Can I track my delivery in real-time?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! You can track your order through our website or receive SMS updates. You'll know exactly when your delivery is on the way and can see the estimated arrival time.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What payment methods are accepted for delivery?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We accept TeleBirr, bank transfers, and cash on delivery. Payment can be made online during ordering or to the delivery personnel upon receipt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="delivery-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Get Your Medicines Delivered?</h2>
+                    <p>Start your order now and experience fast, reliable medicine delivery.</p>
+                    <div class="cta-actions">
+                        <a href="../components/medicines.html" class="btn btn-success">
+                            <i class="fas fa-pills"></i> Order Medicines
+                        </a>
+                        <a href="../components/pharmacies.html" class="btn">
+                            <i class="fas fa-store"></i> Find Pharmacies
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/pages.js"></script>
+    <style>
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .process-step h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .process-step p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .coverage-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .coverage-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .coverage-card h3 i {
+            color: var(--primary-color);
+        }
+        
+        .coverage-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .coverage-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .coverage-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .delivery-fee {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0;
+        }
+        
+        .delivery-cta {
+            background: var(--bg-light);
+            padding: 4rem 0;
+        }
+        
+        .cta-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .cta-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-actions .btn {
+                min-width: 200px;
+            }
+        }
+    </style>
+</body>
+</html>

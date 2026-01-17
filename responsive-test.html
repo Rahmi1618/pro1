@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCare - Responsive Design Test</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 9999;
+        }
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <strong>Responsive Design Test</strong><br>
+        Resize your browser to test different breakpoints
+    </div>
+    
+    <div class="breakpoint-indicator" id="breakpoint-indicator">
+        Desktop
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Medicines</a></li>
+                <li><a href="#">Pharmacies</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-background">
+                <div class="hero-particles"></div>
+                <div class="hero-gradient"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-robot"></i>
+                    <span>AI-Powered Healthcare</span>
+                </div>
+                <h1 class="hero-title">
+                    Smart Pharmacy Management 
+                    <span class="highlight">System</span>
+                </h1>
+                <p class="hero-description">
+                    Find medicines, compare prices, and get intelligent recommendations
+                    from trusted pharmacies across Ethiopia with our AI-powered platform
+                </p>
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" placeholder="Search for medicines, brands, or conditions...">
+                        <button class="search-btn">
+                            <span>Search</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="search-suggestions">
+                        <span class="suggestion-tag">Paracetamol</span>
+                        <span class="suggestion-tag">Amoxicillin</span>
+                        <span class="suggestion-tag">Ibuprofen</span>
+                        <span class="suggestion-tag">Vitamin C</span>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Medicines Available</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Partner Pharmacies</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">AI Assistant</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Explore Features
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-cards">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-pills"></i>
+                        <span>Smart Search</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Price Compare</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Find Pharmacy</span>
+                    </div>
+                    <div class="floating-card card-4">
+                        <i class="fas fa-truck"></i>
+                        <span>Fast Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section features-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <i class="fas fa-star"></i>
+                        <span>Why Choose PharmaCare</span>
+                    </div>
+                    <h2>Powerful Features for Modern Healthcare</h2>
+                    <p>Experience the future of pharmacy management with our AI-powered platform</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI-Powered Recommendations</h3>
+                        <p>Get intelligent medicine suggestions based on your symptoms, medical history, and preferences</p>
+                        <a href="#" class="feature-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Smart Price Comparison</h3>
+                        <p>Compare prices across multiple pharmacies in real-time to find the best deals</p>
+                        <a href="#" class="feature-link">
+                            Compare Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Pharmacy Locator</h3>
+                        <p>Find nearby pharmacies with real-time availability and directions</p>
+                        <a href="#" class="feature-link">
+                            Find Pharmacy <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile navigation toggle function
+        function toggleMobileNav() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('nav-open');
+                
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Breakpoint indicator
+        function updateBreakpointIndicator() {
+            const indicator = document.getElementById('breakpoint-indicator');
+            const width = window.innerWidth;
+            
+            if (width < 481) {
+                indicator.textContent = 'Small Mobile (320-480px)';
+                indicator.style.background = '#ef4444';
+            } else if (width < 769) {
+                indicator.textContent = 'Large Mobile (481-768px)';
+                indicator.style.background = '#f59e0b';
+            } else if (width < 1025) {
+                indicator.textContent = 'Tablet (769-1024px)';
+                indicator.style.background = '#10b981';
+            } else if (width < 1201) {
+                indicator.textContent = 'Small Desktop (1025-1200px)';
+                indicator.style.background = '#3b82f6';
+            } else if (width < 1401) {
+                indicator.textContent = 'Large Desktop (1201-1400px)';
+                indicator.style.background = '#8b5cf6';
+            } else {
+                indicator.textContent = 'Extra Large (1401px+)';
+                indicator.style.background = '#ec4899';
+            }
+        }
+
+        // Update indicator on load and resize
+        window.addEventListener('load', updateBreakpointIndicator);
+        window.addEventListener('resize', updateBreakpointIndicator);
+    </script>
+</body>
+</html>

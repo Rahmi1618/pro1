@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Search Wrapper Test - PharmaCare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/medicines.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background: #f8fafc; }
+        .test-container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        .test-info { background: #dbeafe; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6; }
+        .feature-list { background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981; }
+        .demo-section { margin: 30px 0; padding: 20px; border: 2px dashed #e5e7eb; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🖱️ Clickable Search Wrapper Test</h1>
+        
+        <div class="test-info">
+            <h3>Enhanced Search Functionality:</h3>
+            <p>The entire search wrapper (gray container) is now clickable and will focus the input field when clicked anywhere inside it.</p>
+        </div>
+        
+        <div class="feature-list">
+            <h4>✨ New Features:</h4>
+            <ul>
+                <li><strong>Clickable Wrapper:</strong> Click anywhere in the search container to focus input</li>
+                <li><strong>Text Cursor:</strong> Shows text cursor when hovering over the search area</li>
+                <li><strong>Smart Click Handling:</strong> Buttons and icons still work independently</li>
+                <li><strong>Visual Feedback:</strong> Enhanced hover and focus states</li>
+                <li><strong>Better UX:</strong> Larger click target area for easier interaction</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h3>🎯 Test the Clickable Search:</h3>
+            <div class="enhanced-search-container">
+                <div class="search-wrapper">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" id="medicine-search" placeholder="Click anywhere in this gray area to focus..." autocomplete="off">
+                    <div class="search-clear" id="search-clear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                    <button class="search-btn" onclick="searchMedicine()">
+                        <span>Search</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="search-filters-quick">
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="prescription">Prescription</button>
+                    <button class="filter-chip" data-filter="otc">Over-the-Counter</button>
+                    <button class="filter-chip" data-filter="imported">Imported</button>
+                    <button class="filter-chip" data-filter="local">Local Production</button>
+                </div>
+            </div>
+            
+            <div class="test-instructions" style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 8px;">
+                <h4>🧪 How to Test:</h4>
+                <ol>
+                    <li><strong>Click anywhere</strong> in the gray search container area</li>
+                    <li><strong>Notice</strong> the input field gets focused automatically</li>
+                    <li><strong>Try clicking</strong> on different parts of the container</li>
+                    <li><strong>Test buttons</strong> - they should still work independently</li>
+                    <li><strong>Type something</strong> and see real-time search results</li>
+                </ol>
+            </div>
+        </div>
+        
+        <section id="medicine-results" class="section">
+            <div class="container">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="results-info">
+                        <span id="results-count">Click in the search area above to start...</span>
+                    </div>
+                </div>
+                <div id="medicine-grid" class="medicine-grid">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #6b7280;">
+                        <i class="fas fa-mouse-pointer" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>Click anywhere in the search wrapper above to focus the input!</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">The entire gray container is now clickable for better user experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="demo-section">
+            <h3>🎨 Visual Improvements:</h3>
+            <ul>
+                <li><strong>Text Cursor:</strong> Hover over the search wrapper to see the text cursor</li>
+                <li><strong>Hover Effects:</strong> Enhanced visual feedback on hover</li>
+                <li><strong>Focus States:</strong> Better focus indication when typing</li>
+                <li><strong>Smooth Transitions:</strong> All interactions are smooth and responsive</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/medicines.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Clickable search wrapper test loaded');
+            
+            // Initialize
+            initializeMedicinesPage();
+            setupMedicineEventListeners();
+            
+            // Show all medicines initially
+            setTimeout(() => {
+                filteredMedicines = [...extendedMedicines];
+                displayMedicines();
+                document.getElementById('results-count').textContent = `Showing ${filteredMedicines.length} medicines - Click search area to test!`;
+            }, 500);
+            
+            // Add click tracking for demonstration
+            const searchWrapper = document.querySelector('.search-wrapper');
+            const searchInput = document.getElementById('medicine-search');
+            
+            if (searchWrapper && searchInput) {
+                searchWrapper.addEventListener('click', function(e) {
+                    console.log('Search wrapper clicked!');
+                    
+                    // Visual feedback
+                    if (!e.target.closest('.search-btn') && !e.target.closest('.search-clear') && !e.target.closest('.search-icon')) {
+                        console.log('Focusing input field...');
+                        
+                        // Add a subtle flash effect
+                        searchWrapper.style.boxShadow = '0 25px 50px rgba(37, 99, 235, 0.3)';
+                        setTimeout(() => {
+                            searchWrapper.style.boxShadow = '';
+                        }, 200);
+                    }
+                });
+                
+                searchInput.addEventListener('focus', function() {
+                    console.log('Input focused successfully!');
+                    document.getElementById('results-count').textContent = 'Input focused! Start typing to search...';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

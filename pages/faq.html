@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - PharmaCare</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../components/medicines.html">Medicines</a></li>
+                <li><a href="../components/pharmacies.html">Pharmacies</a></li>
+                <li><a href="../components/orders.html">Orders</a></li>
+                <li id="auth-menu">
+                    <a href="../login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="page-hero">
+            <div class="hero-content">
+                <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+                <p>Find quick answers to common questions about PharmaCare</p>
+                
+                <!-- FAQ Search -->
+                <div class="help-search">
+                    <input type="text" id="faq-search" placeholder="Search FAQs...">
+                    <button onclick="searchFAQ()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Categories -->
+        <section class="faq-categories">
+            <div class="container">
+                <h2>Browse by Category</h2>
+                <div class="category-grid">
+                    <div class="category-card" data-category="account">
+                        <i class="fas fa-user-circle"></i>
+                        <h3>Account & Registration</h3>
+                        <p>Questions about creating and managing your account</p>
+                        <span class="article-count">8 questions</span>
+                    </div>
+                    <div class="category-card" data-category="ordering">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Ordering & Purchasing</h3>
+                        <p>How to place orders and purchase medicines</p>
+                        <span class="article-count">12 questions</span>
+                    </div>
+                    <div class="category-card" data-category="payments">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Payments & Billing</h3>
+                        <p>Payment methods, billing, and refunds</p>
+                        <span class="article-count">6 questions</span>
+                    </div>
+                    <div class="category-card" data-category="delivery">
+                        <i class="fas fa-truck"></i>
+                        <h3>Delivery & Shipping</h3>
+                        <p>Delivery options, tracking, and timing</p>
+                        <span class="article-count">7 questions</span>
+                    </div>
+                    <div class="category-card" data-category="prescriptions">
+                        <i class="fas fa-file-prescription"></i>
+                        <h3>Prescriptions</h3>
+                        <p>Uploading and managing prescriptions</p>
+                        <span class="article-count">10 questions</span>
+                    </div>
+                    <div class="category-card" data-category="technical">
+                        <i class="fas fa-cog"></i>
+                        <h3>Technical Support</h3>
+                        <p>App issues, troubleshooting, and features</p>
+                        <span class="article-count">9 questions</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All FAQs -->
+        <section class="all-faqs">
+            <div class="container">
+                <h2>All Frequently Asked Questions</h2>
+                
+                <!-- Account & Registration -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-user-circle"></i> Account & Registration</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How do I create an account?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>To create an account, click the "Login" button in the top navigation, then select "Create Account". Fill in your personal details including name, email, phone number, and create a secure password. You'll receive a confirmation email to verify your account.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>I forgot my password. How can I reset it?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>On the login page, click "Forgot Password" and enter your email address. We'll send you a password reset link. Click the link in the email and follow the instructions to create a new password.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Can I change my email address?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, you can update your email address in your account settings. Go to your profile, click "Edit Profile", and update your email. You'll need to verify the new email address.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Is my personal information secure?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, we use industry-standard SSL encryption to protect your data. Your personal information is stored securely and never shared with third parties without your consent. We comply with all data protection regulations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ordering & Purchasing -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-shopping-cart"></i> Ordering & Purchasing</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How do I place an order?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Search for your medicine, compare prices across pharmacies, select your preferred pharmacy, add items to cart, and proceed to checkout. You can pay using TeleBirr, bank transfer, or cash on delivery.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Can I order without a prescription?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can order over-the-counter medicines without a prescription. However, prescription medicines require a valid prescription uploaded to our system or presented to the pharmacy.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Can I modify or cancel my order?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can cancel orders that are in "Pending" or "Confirmed" status. Once an order is being processed or shipped, cancellation may not be possible. Contact the pharmacy directly for assistance.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>What if a medicine is out of stock?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our AI system will automatically suggest alternative pharmacies that have the medicine in stock, or recommend similar medicines with the same active ingredient.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments & Billing -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-credit-card"></i> Payments & Billing</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>What payment methods do you accept?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We accept TeleBirr (primary), bank transfers, major credit cards, and cash on delivery. All payments are processed securely with SSL encryption.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Are there any additional fees?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>TeleBirr payments have no additional fees. Bank transfers may have small processing fees. Delivery fees vary by pharmacy and distance, typically ranging from ETB 10-50.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How do refunds work?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Refunds are processed within 3-5 business days for cancelled orders. For returned medicines (due to quality issues), refunds are processed after pharmacy verification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery & Shipping -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-truck"></i> Delivery & Shipping</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How long does delivery take?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Delivery times vary by pharmacy and location. Most orders are delivered within 30-60 minutes in urban areas. Rural deliveries may take 2-4 hours.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Can I track my order?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, you can track your order in real-time through the Orders page. You'll receive SMS notifications for status updates including confirmation, processing, shipping, and delivery.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>What if I'm not home for delivery?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our delivery personnel will call you before arrival. If you're not available, they can leave the medicine with a trusted neighbor or reschedule delivery for a convenient time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prescriptions -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-file-prescription"></i> Prescriptions</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How do I upload a prescription?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>On the Medicines page, click the "Upload Prescription" area and select an image (JPG, PNG) or PDF file of your prescription. Our AI system will automatically extract the medicine information.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>What file formats are supported?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We support JPG, PNG, and PDF files up to 5MB in size. Make sure the prescription is clearly visible and readable for accurate AI processing.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How accurate is the AI prescription reading?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our AI has 95%+ accuracy in reading prescriptions. However, we always recommend verifying the extracted information before placing your order. Pharmacists also verify prescriptions before dispensing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Support -->
+                <div class="faq-category-section">
+                    <h3><i class="fas fa-cog"></i> Technical Support</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>The website is loading slowly. What should I do?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Try refreshing the page, clearing your browser cache, or switching to a different browser. If the problem persists, check your internet connection or contact our technical support.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>How does the AI recommendation system work?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our AI analyzes medicine availability, prices, pharmacy locations, and your preferences to recommend the best options. It considers factors like distance, price, stock levels, and pharmacy ratings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h4>Can I use PharmaCare on my mobile phone?</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, PharmaCare is fully responsive and works perfectly on mobile phones, tablets, and desktop computers. We're also developing a dedicated mobile app.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Still Need Help -->
+        <section class="need-help">
+            <div class="container">
+                <div class="help-cta">
+                    <h2>Still Need Help?</h2>
+                    <p>Can't find the answer you're looking for? Our support team is here to help.</p>
+                    <div class="help-actions">
+                        <a href="./contact-us.html" class="btn btn-success">
+                            <i class="fas fa-envelope"></i> Contact Support
+                        </a>
+                        <button class="btn" onclick="openLiveChat()">
+                            <i class="fas fa-comments"></i> Live Chat
+                        </button>
+                        <a href="./help-center.html" class="btn btn-outline">
+                            <i class="fas fa-question-circle"></i> Help Center
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/pages.js"></script>
+    <script>
+        function searchFAQ() {
+            const query = document.getElementById('faq-search').value.trim().toLowerCase();
+            if (!query) {
+                showAlert('Please enter a search term.', 'error');
+                return;
+            }
+            
+            const faqItems = document.querySelectorAll('.faq-item');
+            let foundCount = 0;
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h4').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(query) || answer.includes(query)) {
+                    item.style.display = 'block';
+                    foundCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            if (foundCount === 0) {
+                showAlert(`No FAQs found for "${query}". Try different keywords or contact support.`, 'info');
+            } else {
+                showAlert(`Found ${foundCount} FAQ(s) matching "${query}"`, 'success');
+            }
+        }
+    </script>
+</body>
+</html>

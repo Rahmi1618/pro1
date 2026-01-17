@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Navigation Test</title>
+    <link rel="stylesheet" href="css/pharmacies.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding-top: 70px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .test-content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-info {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .resize-instruction {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="components/medicines.html">Medicines</a></li>
+                <li><a href="components/pharmacies.html" class="active">Pharmacies</a></li>
+                <li><a href="components/orders.html">Orders</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="test-content">
+        <h1>Mobile Navigation Test</h1>
+        
+        <div class="test-info">
+            <h3>✅ Navigation Features Implemented:</h3>
+            <ul>
+                <li><strong>Desktop:</strong> Horizontal navigation menu</li>
+                <li><strong>Mobile:</strong> Hamburger menu (3 dashes) that toggles</li>
+                <li><strong>Responsive:</strong> Automatically switches at 768px breakpoint</li>
+                <li><strong>Interactive:</strong> Smooth animations and transitions</li>
+            </ul>
+        </div>
+        
+        <div class="resize-instruction">
+            <h3>🔧 How to Test:</h3>
+            <ol>
+                <li><strong>Resize your browser window</strong> to less than 768px width</li>
+                <li><strong>Look for the 3 dashes (hamburger menu)</strong> on the right side of the navigation</li>
+                <li><strong>Click the 3 dashes</strong> to open/close the mobile menu</li>
+                <li><strong>Try clicking menu items</strong> - they should close the mobile menu</li>
+                <li><strong>Click outside the menu</strong> - it should close automatically</li>
+            </ol>
+        </div>
+        
+        <h2>Map with Text Implementation</h2>
+        <p>The pharmacies page now includes:</p>
+        <ul>
+            <li>✅ <strong>Text beside the map</strong> with pharmacy information</li>
+            <li>✅ <strong>Responsive layout</strong> - text moves below map on mobile</li>
+            <li>✅ <strong>Interactive features</strong> with buttons and statistics</li>
+            <li>✅ <strong>Mobile-friendly design</strong> that adapts to screen size</li>
+        </ul>
+        
+        <p><a href="components/pharmacies.html" style="color: #2563eb; text-decoration: none; font-weight: 600;">→ View Full Pharmacies Page</a></p>
+        
+        <h2>Technical Implementation</h2>
+        <ul>
+            <li><strong>CSS Grid:</strong> Used for responsive map container layout</li>
+            <li><strong>Flexbox:</strong> For navigation and component alignment</li>
+            <li><strong>Media Queries:</strong> Responsive breakpoints at 768px and 480px</li>
+            <li><strong>JavaScript:</strong> Toggle functionality with event listeners</li>
+            <li><strong>Animations:</strong> Smooth transitions for hamburger menu transformation</li>
+        </ul>
+    </div>
+
+    <script>
+        // Mobile navigation toggle function
+        function toggleMobileNav() {
+            const navMenu = document.getElementById('nav-menu');
+            const navToggle = document.getElementById('nav-toggle');
+            
+            if (navMenu && navToggle) {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+                
+                // Prevent body scroll when menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Close mobile menu when clicking on a link
+        function closeMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const navToggle = document.getElementById('nav-toggle');
+            
+            if (navMenu && navToggle) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close mobile menu when clicking on navigation links
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const navMenu = document.getElementById('nav-menu');
+                const navToggle = document.getElementById('nav-toggle');
+                const navbar = document.querySelector('.navbar');
+                
+                if (navMenu && navToggle && navbar) {
+                    if (!navbar.contains(event.target) && navMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
